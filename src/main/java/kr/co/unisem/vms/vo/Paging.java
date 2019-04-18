@@ -28,4 +28,11 @@ public class Paging implements Serializable {
     public void setLimit(int limit) {
         this.limit = (limit > 100  || limit < 0) ? 10 : limit;
     }
+
+    @Override
+    public String toString() {
+        return String.format("offset=%d, limit=%d, sort=%s, order=%s", this.offset, this.limit, this.sort, this.order);
+    }
+
+
 }

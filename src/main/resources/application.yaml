@@ -9,21 +9,27 @@ logging:
   level:
     root: info
     kr.co.unisem: debug
-
     org:
-#      mybatis: debug
+      mybatis: info
+      springframework:
+        web:
+          filter:
+            CommonsRequestLoggingFilter: debug
       hibernate:
-        SQL: DEBUG
+        SQL: info
         type:
           descriptor:
             sql:
-              BasicBinder: TRACE
+              BasicBinder: info
 spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: utf-8
+    cache: false
   devtools:
     livereload:
       enabled: true
-    thymeleaf:
-      cache: false
   datasource: # DB 설정
     url: jdbc:mysql://127.0.0.1:3306/vms?useUnicode=yes&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver

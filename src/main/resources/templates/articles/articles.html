@@ -1,41 +1,44 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/bootstrap-table/bootstrap-table.min.css}">
-    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/all.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/fontawesome.min.css}">
 </head>
 <body class="container-fluid">
     <div>
-        Logged in: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+        Logged in app: <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b>
         <form th:action="@{/app-logout}" method="POST">
             <input type="submit" value="Logout"/>
         </form>
     </div>
 
+
+
     <div id="toolbar-article">
-        <form id="form-article">
-            <input type="text" name="start_date" value="2019-04-16 10:00"> ~ <input type="text" name="end_date" value="2019-04-16 12:00">
-            <input type="hidden" name="category" value="">
+        <form id="form-article" class="form-inline" role="form" method="post" th:action="@{articles}">
+            <input type="text" class="form-control" name="start_date"  th:value="${filter.startDate}"/>
+            <input type="text" class="form-control" name="end_date" th:value="${filter.endDate}"/>
+            <input type="text" class="form-control" name="title" th:value="${filter.title}"/>
+            <input type="checkbox" class="form-control" name="fast_paging" th:checked="${filter.fastPaging}" />
+            <input type="hidden" name="category" value="" />
+            <input type="submit" value="Search"/>
         </form>
     </div>
     <table  id="table-article" class="table table-bordered table-hover"
-            data-url="/app/secure/article-details"
             data-toolbar="#toolbar-article"
             data-toggle="bootstrap-table"
             data-show-refresh="true"
             data-show-columns="true"
             data-pagination="true"
             data-side-pagination="server"
-            data-sort-name="title"
-            data-sort-order="asc"
             data-page-size="10"
     >
         <thead>
         <tr>
-            <th data-field="articleId" data-sortable="true">id</th>
+            <th data-field="article_id" data-sortable="true">id</th>
             <th data-field="title"      data-sortable="true">Title</th>
             <th data-field="category"   data-sortable="true">category</th>
             <th data-field="date"       data-sortable="true">date</th>
@@ -44,29 +47,25 @@
     </table>
     <button type="button" class="btn btn-primary btn-refresh">Refresh</button>
 
-    <table border="1" class="" >
-        <tr th:each="article : ${userArticles}">
-            <td th:text="${article.articleId}">date</td>
-            <td th:text="${article.date}">date</td>
-            <td th:text="${article.title}">Title</td>
-            <td th:text="${article.category}">Category</td>
-        </tr>
-    </table>
-
-    <br><br>
-
-
     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
-    <script th:src="@{/js/test.js}"></script>
+    <script th:src="@{/js/modules/articles/articles.js}"></script>
 
     <script th:inline="javascript">
         /*<![CDATA[*/
-            console.log(333);
+        var filter = {
+            start_date: [[ ${filter.startDate} ]],
+            end_date: [[ ${filter.endDate} ]],
+            fast_paging: [[ ${filter.fastPaging} ]],
+        };
         /*]]>*/
 
-        console.log(444);
+        /*<![CDATA[*/
+            // console.log(333);
+        /*]]>*/
+
+        // console.log(444);
     </script>
 </body>
 </html>

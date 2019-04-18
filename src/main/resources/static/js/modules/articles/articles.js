@@ -9,6 +9,9 @@ $(function() {
     });
 
     function update() {
+        console.log(filter);
+        console.log($.param(filter));
+        // $("#table-article")
         // var $table = $("#table-article");
         // console.log( $table.data('url') );
         $("#table-article").bootstrapTable({
