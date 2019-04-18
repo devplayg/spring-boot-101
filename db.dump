@@ -1,0 +1,208 @@
+-- --------------------------------------------------------
+-- 호스트:                          127.0.0.1
+-- 서버 버전:                        10.3.14-MariaDB-1:10.3.14+maria~bionic - mariadb.org binary distribution
+-- 서버 OS:                        debian-linux-gnu
+-- HeidiSQL 버전:                  10.1.0.5464
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- vms 데이터베이스 구조 내보내기
+CREATE DATABASE IF NOT EXISTS `vms` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `vms`;
+
+-- 테이블 vms.articles 구조 내보내기
+CREATE TABLE IF NOT EXISTS `articles` (
+  `article_id` int(5) NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL,
+  `category` tinyint(4) NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`article_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 vms.articles:~128 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `articles` DISABLE KEYS */;
+INSERT INTO `articles` (`article_id`, `title`, `category`, `date`) VALUES
+	(1, 'Hello Unisem', 1, '2019-04-15 05:02:55'),
+	(2, 'No pain no gain', 2, '2019-04-15 05:02:54'),
+	(3, 'No gain no break', 3, '2019-04-15 05:02:56'),
+	(4, 'title', 1, '2019-04-16 04:22:09'),
+	(5, 'title', 2, '2019-04-16 04:22:09'),
+	(6, 'title', 3, '2019-04-16 04:22:09'),
+	(7, 'title', 4, '2019-04-16 04:22:09'),
+	(8, 'title', 5, '2019-04-16 04:22:09'),
+	(9, 'title', 1, '2019-04-16 04:22:10'),
+	(10, 'title', 2, '2019-04-16 04:22:10'),
+	(11, 'title', 3, '2019-04-16 04:22:10'),
+	(12, 'title', 4, '2019-04-16 04:22:10'),
+	(13, 'title', 5, '2019-04-16 04:22:10'),
+	(14, 'title', 1, '2019-04-16 04:22:10'),
+	(15, 'title', 2, '2019-04-16 04:22:10'),
+	(16, 'title', 3, '2019-04-16 04:22:10'),
+	(17, 'title', 4, '2019-04-16 04:22:10'),
+	(18, 'title', 5, '2019-04-16 04:22:10'),
+	(19, 'title', 1, '2019-04-16 04:22:10'),
+	(20, 'title', 2, '2019-04-16 04:22:10'),
+	(21, 'title', 3, '2019-04-16 04:22:10'),
+	(22, 'title', 4, '2019-04-16 04:22:10'),
+	(23, 'title', 5, '2019-04-16 04:22:10'),
+	(24, 'title', 1, '2019-04-16 04:22:11'),
+	(25, 'title', 2, '2019-04-16 04:22:11'),
+	(26, 'title', 3, '2019-04-16 04:22:11'),
+	(27, 'title', 4, '2019-04-16 04:22:11'),
+	(28, 'title', 5, '2019-04-16 04:22:11'),
+	(29, 'title', 1, '2019-04-16 04:22:11'),
+	(30, 'title', 2, '2019-04-16 04:22:11'),
+	(31, 'title', 3, '2019-04-16 04:22:11'),
+	(32, 'title', 4, '2019-04-16 04:22:11'),
+	(33, 'title', 5, '2019-04-16 04:22:11'),
+	(34, 'title', 1, '2019-04-16 04:22:11'),
+	(35, 'title', 2, '2019-04-16 04:22:11'),
+	(36, 'title', 3, '2019-04-16 04:22:11'),
+	(37, 'title', 4, '2019-04-16 04:22:11'),
+	(38, 'title', 5, '2019-04-16 04:22:11'),
+	(39, 'title', 1, '2019-04-16 04:22:12'),
+	(40, 'title', 2, '2019-04-16 04:22:12'),
+	(41, 'title', 3, '2019-04-16 04:22:12'),
+	(42, 'title', 4, '2019-04-16 04:22:12'),
+	(43, 'title', 5, '2019-04-16 04:22:12'),
+	(44, 'title', 1, '2019-04-16 04:22:12'),
+	(45, 'title', 2, '2019-04-16 04:22:12'),
+	(46, 'title', 3, '2019-04-16 04:22:12'),
+	(47, 'title', 4, '2019-04-16 04:22:12'),
+	(48, 'title', 5, '2019-04-16 04:22:12'),
+	(49, 'title', 1, '2019-04-16 04:22:12'),
+	(50, 'title', 2, '2019-04-16 04:22:12'),
+	(51, 'title', 3, '2019-04-16 04:22:12'),
+	(52, 'title', 4, '2019-04-16 04:22:12'),
+	(53, 'title', 5, '2019-04-16 04:22:12'),
+	(54, 'title', 1, '2019-04-16 04:22:13'),
+	(55, 'title', 2, '2019-04-16 04:22:13'),
+	(56, 'title', 3, '2019-04-16 04:22:13'),
+	(57, 'title', 4, '2019-04-16 04:22:13'),
+	(58, 'title', 5, '2019-04-16 04:22:13'),
+	(59, 'title', 1, '2019-04-16 04:22:13'),
+	(60, 'title', 2, '2019-04-16 04:22:13'),
+	(61, 'title', 3, '2019-04-16 04:22:13'),
+	(62, 'title', 4, '2019-04-16 04:22:13'),
+	(63, 'title', 5, '2019-04-16 04:22:13'),
+	(64, 'title', 1, '2019-04-16 04:22:13'),
+	(65, 'title', 2, '2019-04-16 04:22:13'),
+	(66, 'title', 3, '2019-04-16 04:22:13'),
+	(67, 'title', 4, '2019-04-16 04:22:13'),
+	(68, 'title', 5, '2019-04-16 04:22:13'),
+	(69, 'title', 1, '2019-04-16 04:22:13'),
+	(70, 'title', 2, '2019-04-16 04:22:13'),
+	(71, 'title', 3, '2019-04-16 04:22:13'),
+	(72, 'title', 4, '2019-04-16 04:22:13'),
+	(73, 'title', 5, '2019-04-16 04:22:13'),
+	(74, 'title', 1, '2019-04-16 04:22:14'),
+	(75, 'title', 2, '2019-04-16 04:22:14'),
+	(76, 'title', 3, '2019-04-16 04:22:14'),
+	(77, 'title', 4, '2019-04-16 04:22:14'),
+	(78, 'title', 5, '2019-04-16 04:22:14'),
+	(79, 'title', 1, '2019-04-16 04:22:14'),
+	(80, 'title', 2, '2019-04-16 04:22:14'),
+	(81, 'title', 3, '2019-04-16 04:22:14'),
+	(82, 'title', 4, '2019-04-16 04:22:14'),
+	(83, 'title', 5, '2019-04-16 04:22:14'),
+	(84, 'title', 1, '2019-04-16 04:22:14'),
+	(85, 'title', 2, '2019-04-16 04:22:14'),
+	(86, 'title', 3, '2019-04-16 04:22:14'),
+	(87, 'title', 4, '2019-04-16 04:22:14'),
+	(88, 'title', 5, '2019-04-16 04:22:14'),
+	(89, 'title', 1, '2019-04-16 04:22:14'),
+	(90, 'title', 2, '2019-04-16 04:22:14'),
+	(91, 'title', 3, '2019-04-16 04:22:14'),
+	(92, 'title', 4, '2019-04-16 04:22:14'),
+	(93, 'title', 5, '2019-04-16 04:22:14'),
+	(94, 'title', 1, '2019-04-16 04:22:15'),
+	(95, 'title', 2, '2019-04-16 04:22:15'),
+	(96, 'title', 3, '2019-04-16 04:22:15'),
+	(97, 'title', 4, '2019-04-16 04:22:15'),
+	(98, 'title', 5, '2019-04-16 04:22:15'),
+	(99, 'title', 1, '2019-04-16 04:22:15'),
+	(100, 'title', 2, '2019-04-16 04:22:15'),
+	(101, 'title', 3, '2019-04-16 04:22:15'),
+	(102, 'title', 4, '2019-04-16 04:22:15'),
+	(103, 'title', 5, '2019-04-16 04:22:15'),
+	(104, 'title', 1, '2019-04-16 04:22:15'),
+	(105, 'title', 2, '2019-04-16 04:22:15'),
+	(106, 'title', 3, '2019-04-16 04:22:15'),
+	(107, 'title', 4, '2019-04-16 04:22:15'),
+	(108, 'title', 5, '2019-04-16 04:22:15'),
+	(109, 'title', 1, '2019-04-16 04:22:15'),
+	(110, 'title', 2, '2019-04-16 04:22:15'),
+	(111, 'title', 3, '2019-04-16 04:22:15'),
+	(112, 'title', 4, '2019-04-16 04:22:15'),
+	(113, 'title', 5, '2019-04-16 04:22:15'),
+	(114, 'title', 1, '2019-04-16 04:22:16'),
+	(115, 'title', 2, '2019-04-16 04:22:16'),
+	(116, 'title', 3, '2019-04-16 04:22:16'),
+	(117, 'title', 4, '2019-04-16 04:22:16'),
+	(118, 'title', 5, '2019-04-16 04:22:16'),
+	(119, 'title', 1, '2019-04-16 04:22:16'),
+	(120, 'title', 2, '2019-04-16 04:22:16'),
+	(121, 'title', 3, '2019-04-16 04:22:16'),
+	(122, 'title', 4, '2019-04-16 04:22:16'),
+	(123, 'title', 5, '2019-04-16 04:22:16'),
+	(124, 'title', 1, '2019-04-16 04:22:16'),
+	(125, 'title', 2, '2019-04-16 04:22:16'),
+	(126, 'title', 3, '2019-04-16 04:22:16'),
+	(127, 'title', 4, '2019-04-16 04:22:16'),
+	(128, 'title', 5, '2019-04-16 04:22:16');
+/*!40000 ALTER TABLE `articles` ENABLE KEYS */;
+
+-- 테이블 vms.customers 구조 내보내기
+CREATE TABLE IF NOT EXISTS `customers` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `first_name` varchar(255) DEFAULT NULL,
+  `last_name` varchar(255) DEFAULT NULL,
+  UNIQUE KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- 테이블 데이터 vms.customers:~0 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+
+-- 테이블 vms.hibernate_sequence 구조 내보내기
+CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
+  `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- 테이블 데이터 vms.hibernate_sequence:~0 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
+INSERT INTO `hibernate_sequence` (`next_val`) VALUES
+	(1);
+/*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
+
+-- 테이블 vms.mbr_member 구조 내보내기
+CREATE TABLE IF NOT EXISTS `mbr_member` (
+  `member_id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) NOT NULL,
+  `password` varchar(256) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `email` varchar(256) NOT NULL,
+  `position` int(11) unsigned NOT NULL,
+  `role` varchar(50) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`member_id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 vms.mbr_member:~0 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `mbr_member` DISABLE KEYS */;
+INSERT INTO `mbr_member` (`member_id`, `username`, `password`, `name`, `email`, `position`, `role`, `enabled`, `created`, `updated`) VALUES
+	(1, 'unisem', '$2a$10$N0eqNiuikWCy9ETQ1rdau.XEELcyEO7kukkfoiNISk/9F7gw6eB0W', 'mumu mu', 'a@a.com', 1, 'ROLE_USER', 1, '2019-04-11 09:13:19', '2019-04-11 01:37:56');
+/*!40000 ALTER TABLE `mbr_member` ENABLE KEYS */;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

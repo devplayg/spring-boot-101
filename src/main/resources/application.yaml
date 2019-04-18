@@ -1,0 +1,38 @@
+server:
+  port: 80 # 서버 웹포트
+
+logging:
+  file:
+    path: logs/web.log
+    max-size: 10M
+    max-history: 10
+  level:
+    root: info
+    kr.co.unisem: debug
+
+    org:
+#      mybatis: debug
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+spring:
+  devtools:
+    livereload:
+      enabled: true
+    thymeleaf:
+      cache: false
+  datasource: # DB 설정
+    url: jdbc:mysql://127.0.0.1:3306/vms?useUnicode=yes&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: Uniiot12!@
+  profiles:
+    active: local
+mybatis:
+  type-aliases-package: kr.co.unisem.vms.mapper
+  mapper-locations:  mybatis/mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
