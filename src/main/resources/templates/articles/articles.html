@@ -15,16 +15,28 @@
         </form>
     </div>
 
-
-
     <div id="toolbar-article">
         <form id="form-article" class="form-inline" role="form" method="post" th:action="@{articles}">
-            <input type="text" class="form-control" name="start_date"  th:value="${filter.startDate}"/>
-            <input type="text" class="form-control" name="end_date" th:value="${filter.endDate}"/>
+            <input type="text" class="form-control" name="startDate"  th:value="${filter.startDate}"/>
+            <input type="text" class="form-control" name="endDate" th:value="${filter.endDate}"/>
             <input type="text" class="form-control" name="title" th:value="${filter.title}"/>
-            <input type="checkbox" class="form-control" name="fast_paging" th:checked="${filter.fastPaging}" />
-            <input type="hidden" name="category" value="" />
-            <input type="submit" value="Search"/>
+
+            <div>
+                <input type="checkbox" class="form-control" name="fastPaging" th:checked="${filter.fastPaging}" />
+                Fast paging
+            </div>
+
+            <select name="category">
+                <option value="1"></option>
+            </select>
+
+            <div class="form-group">
+                <input type="checkbox" class="form-control" name="riskLevel[]" value="1" >Normal<br>
+                <input type="checkbox" class="form-control" name="riskLevel[]" value="2" checked>Warning<br>
+                <input type="checkbox" class="form-control" name="riskLevel[]" value="4" checked>Danger<br>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Search</button>
         </form>
     </div>
     <table  id="table-article" class="table table-bordered table-hover"
@@ -45,7 +57,7 @@
         </tr>
         </thead>
     </table>
-    <button type="button" class="btn btn-primary btn-refresh">Refresh</button>
+<!--    <button type="button" class="btn btn-primary btn-refresh">Refresh</button>-->
 
     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
@@ -55,9 +67,11 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         var filter = {
-            start_date: [[ ${filter.startDate} ]],
-            end_date: [[ ${filter.endDate} ]],
-            fast_paging: [[ ${filter.fastPaging} ]],
+            startDate: [[ ${filter.startDate} ]],
+            endDate: [[ ${filter.endDate} ]],
+            title: [[ ${filter.title} ]],
+            fastPaging: [[ ${filter.fastPaging} ]],
+            riskLevel:  [[ ${filter.riskLevel} ]],
         };
         /*]]>*/
 

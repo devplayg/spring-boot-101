@@ -8,19 +8,19 @@ logging:
     max-history: 10
   level:
     root: info
-    kr.co.unisem: debug
+    kr.co.unisem: info
     org:
       mybatis: info
       springframework:
         web:
           filter:
-            CommonsRequestLoggingFilter: debug
+            CommonsRequestLoggingFilter: info
       hibernate:
         SQL: info
         type:
           descriptor:
             sql:
-              BasicBinder: info
+              BasicBinder: trace
 spring:
   thymeleaf:
     prefix: classpath:/templates/

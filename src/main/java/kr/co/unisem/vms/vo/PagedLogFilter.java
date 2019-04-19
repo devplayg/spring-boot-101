@@ -1,27 +1,19 @@
 package kr.co.unisem.vms.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-
-import javax.persistence.Column;
+import lombok.*;
 
 @Getter
 @Setter
+@ToString(callSuper=true)
 public class PagedLogFilter extends Paging {
-
-    @Column(name="start_date")
-//    @JsonProperty("start_date")
     private String startDate;
-
-//    @Column(name="end_date")
-    @JsonProperty("end_date")
     private String endDate;
-
     private String title;
+    private Integer[] riskLevel;
 
-    @Override
-    public String toString() {
-        return String.format("start_date=%s, end_date=%s, title=%s", this.startDate, this.endDate, this.title) + "&" + super.toString();
-    }
+//    public PagedLogFilter(String startDate, String endDate, int offset, int limit, boolean fastPaging) {
+//        super(offset, limit, fastPaging);
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//    }
 }

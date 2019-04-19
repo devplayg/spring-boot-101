@@ -9,13 +9,16 @@ $(function() {
     });
 
     function update() {
+        var url = '/app/articles/list?'+$.param(filter);
+        console.log(url);
         console.log(filter);
-        console.log($.param(filter));
+        // console.log(filter);
+        // console.log($.param(filter));
         // $("#table-article")
         // var $table = $("#table-article");
         // console.log( $table.data('url') );
         $("#table-article").bootstrapTable({
-            url: '/app/articles/list?fastPaging=false'
+            url: url
         });
 
     }

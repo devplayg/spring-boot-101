@@ -35,7 +35,7 @@ public class ArticleController {
     }
 
     @RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
-    public String displayAllArticles(@ModelAttribute PagedLogFilter filter, Model model) {
+    public String displayAllArticles(@ModelAttribute("form-article") PagedLogFilter filter, Model model) {
         log.info(filter.toString());
 //        log.info("from:{}, to:{}, isFastPaging={}", filter.getStartDate(), filter.getEndDate(), filter.isFastPaging());
 //        PagedLogFilter filter = new PagedLogFilter();
@@ -93,8 +93,8 @@ public class ArticleController {
     @GetMapping("articles/list")
     public ResponseEntity<Object> listArticles(@ModelAttribute("paging") PagedLogFilter paging) {
         List<Article> list = articleRepository.getArticlesPaged(paging);
+        log.info(paging.toString());
 
-        log.debug("fastPaging={}, order by {} {}, limit {}, {}", paging.isFastPaging(), paging.getSort(), paging.getOrder(), paging.getOffset(), paging.getLimit());
         if (!paging.isFastPaging()) {
             int total = commonRepository.selectTotalRows();
 //            log.debug("total = {}", total);
@@ -103,20 +103,6 @@ public class ArticleController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
-//    public String listPage(@ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-//
-//        logger.info(cri.toString());
-//
-//        model.addAttribute("list", service.listCriteria(cri));  // 게시판의 글 리스트
-//        PageMaker pageMaker = new PageMaker();
-//        pageMaker.setCri(cri);
-//        pageMaker.setTotalCount(service.listCountCriteria(cri));
-//
-//        model.addAttribute("pageMaker", pageMaker);  // 게시판 하단의 페이징 관련, 이전페이지, 페이지 링크 , 다음 페이지
-//
-//        return "/samples/board/listPage";
-//    }
 
 
 //    private boolean isAjax(HttpServletRequest request) {
