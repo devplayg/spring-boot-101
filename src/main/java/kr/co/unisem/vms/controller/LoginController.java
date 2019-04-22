@@ -9,7 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 @SpringBootApplication
 @RestController
-@RequestMapping("app")
 @Slf4j
 public class LoginController {
 

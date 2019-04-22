@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .formLogin()// 사용자 로그인
 //                 https://docs.spring.io/spring-security/site/docs/current/guides/html5/form-javaconfig.html
                 // 사용자 로그인 페이지
-                .loginPage("/app/login")
+                .loginPage("/login")
 
                 // 로그인 절차 진행
                 .loginProcessingUrl("/app-login")
@@ -70,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/app-logout")
 
                 // 로그아웃 성공 시 리다이렉트 될 URL
-                .logoutSuccessUrl("/app/login")
+                .logoutSuccessUrl("/login")
 
                 // 쿠키 삭제
                 .deleteCookies("JSESSIONID")
