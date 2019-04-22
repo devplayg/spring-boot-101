@@ -11,10 +11,6 @@ logging:
     kr.co.unisem: info
     org:
       mybatis: info
-      springframework:
-        web:
-          filter:
-            CommonsRequestLoggingFilter: info
       hibernate:
         SQL: debug
         type:

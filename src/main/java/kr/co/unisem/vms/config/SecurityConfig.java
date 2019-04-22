@@ -2,6 +2,7 @@ package kr.co.unisem.vms.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.CommonsRequestLoggingFilter;
 
 // 설정
 @Configuration
@@ -91,12 +93,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //    @Bean
 //    public CommonsRequestLoggingFilter requestLoggingFilter() {
-//        CommonsRequestLoggingFilter loggingFilter = new CommonsRequestLoggingFilter();
-//        loggingFilter.setIncludeClientInfo(true);
-//        loggingFilter.setIncludeQueryString(true);
-//        loggingFilter.setIncludePayload(true);
-//        loggingFilter.setIncludeHeaders(false);
-//        return loggingFilter;
+//        CommonsRequestLoggingFilter filter = new CommonsRequestLoggingFilter();
+//        filter.setIncludeClientInfo(false);
+//        filter.setIncludeQueryString(false);
+//        filter.setIncludePayload(false);
+//        filter.setIncludeHeaders(true);
+//        filter.setAfterMessagePrefix("REQUEST DATA : ");
+//
+//        return filter;
 //    }
 
 

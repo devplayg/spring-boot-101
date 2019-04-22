@@ -30,6 +30,13 @@ public class ArticleController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
+    public String displayAllArticles(@ModelAttribute ArticleFilter filter, Model model) {
+        log.info(filter.toString());
+        model.addAttribute("filter", filter);
+        return "articles/articles";
+    }
+
     // ============================================================================================
 //    private EnumMapper enumMapper;
 //
@@ -84,15 +91,15 @@ public class ArticleController {
 
 
 //    public String hello(Model model) {
-@RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
-public String displayAllArticles(@ModelAttribute ArticleFilter filter, Model model) {
-    log.info(filter.toString());
+//@RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
+//public String displayAllArticles(@ModelAttribute ArticleFilter filter, Model model) {
+//    log.info(filter.toString());
 //        log.info("from:{}, to:{}, isFastPaging={}", filter.getStartDate(), filter.getEndDate(), filter.isFastPaging());
 //        PagedLogFilter filter = new PagedLogFilter();
 //        filter.setStartDate("2018-12-04 00:00");
 //        filter.setEndDate("2018-12-05 23:59");
 //        modelAndView.addObject("filter", filter);
-    model.addAttribute("filter", filter);
+//    model.addAttribute("filter", filter);
 //        EnumRiskLevel.RiskLevelType.
 //        model.addAttribute("orgTypes", EnumOrg.OrgType.values());
 //        mv.addObject("filter", filter);
@@ -104,8 +111,8 @@ public String displayAllArticles(@ModelAttribute ArticleFilter filter, Model mod
 
 //        model.addAttribute("attribute1", "attributeValue1");
 
-    return "articles/articles";
-}
+//    return "articles/articles";
+//}
 //        //model.addAttribute("name", name);
 //        return "articles";
 //    }

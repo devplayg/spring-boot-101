@@ -7,7 +7,6 @@ import java.io.Serializable;
 @Getter
 @Setter
 @ToString
-//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Paging implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -16,13 +15,6 @@ public class Paging implements Serializable {
     private String sort;
     private String order;
     private boolean fastPaging;
-
-//    @Builder
-//    public Paging(int offset, int limit, boolean fastPaging) {
-//        this.offset = offset;
-//        this.limit = limit;
-//        this.fastPaging = fastPaging;
-//    }
 
     public void setOffset(int offset) {
         this.offset = (offset > 0) ? offset : 0;
