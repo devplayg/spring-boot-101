@@ -1,7 +1,4 @@
 $(function() {
-    // console.log(555);
-    //console.log(queryParams());
-
     updateFilter();
 
     function updateFilter() {
@@ -9,7 +6,23 @@ $(function() {
         $( 'select[name=org]' ).selectpicker('val', filter.org);
         $( 'select[name=category]' ).selectpicker('val', filter.category);
 
-        $( 'select[name=riskLevel]' ).selectpicker('val', filter.riskLevel);
+        if (filter.riskLevel !== null ) {
+            var riskLevel = filter.riskLevel.reduce(function(o, val) {
+                o[val] = true;
+                return o;
+            }, {});
+            $("input[name=riskLevel]").each(function(i) {
+                if (riskLevel[ $(this).val() ]) {
+                    $(this).prop('checked', riskLevel[ $(this).val() ]);
+                }
+            });
+
+        }
+
+        // $()
+// console.log(filter.riskLevel.join('"],[value="') );
+        // $('input[name=riskLevel] [value="'+filter.riskLevel.join('"],[value="')+'"]').prop('checked',true);
+
 
 
     }
@@ -37,7 +50,6 @@ $(function() {
         // console.log( Object.keys(filter).map(key => key + '=' + filter[key]).join('&') );
         //var url = '/app/articles/list?'+decodeURIComponent($.param(filter));
         var url = '/app/articles/list';
-        console.log(url);
 
         //console.log(url);
 
@@ -47,6 +59,7 @@ $(function() {
             title: filter.title,
         };
         url += '?'+$.param(param);
+        console.log(url);
         //
         // var paramArr = {
         //     org: filter.org,

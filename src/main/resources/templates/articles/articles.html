@@ -17,7 +17,7 @@
     </div>
 
     <div id="toolbar-article">
-        <form id="form-article" class="form-inline" role="form" method="post"  th:action="@{articles}">
+        <form id="form-article" class="form-inline" role="form" method="post" th:action="@{articles}" th:object="${customer}" >
             <input type="text" class="form-control" name="startDate" th:value="${filter.startDate}"/>
             <input type="text" class="form-control" name="endDate" th:value="${filter.endDate}"/>
             <input type="text" class="form-control" name="title" th:value="${filter.title}"/>
@@ -40,12 +40,6 @@
                 </option>
             </select>
 
-            <select name="riskLevel" multiple class="selectpicker" >
-                <option th:each="state : ${T(kr.co.unisem.vms.code.EnumRiskLevel.RiskLevel).values()}"
-                        th:value="${state}"
-                        th:text="${state.value}">
-                </option>
-            </select>
 
             <div class="form-group">
                 <div

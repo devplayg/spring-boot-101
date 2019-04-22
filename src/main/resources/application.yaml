@@ -8,15 +8,15 @@ logging:
     max-history: 10
   level:
     root: info
-    kr.co.unisem: info
+    kr.co.unisem: debug
     org:
-      mybatis: info
+      mybatis: debug
       springframework:
         web:
           filter:
             CommonsRequestLoggingFilter: info
       hibernate:
-        SQL: info
+        SQL: debug
         type:
           descriptor:
             sql:

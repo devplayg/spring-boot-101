@@ -87,7 +87,7 @@ public class ArticleController {
 
 //    public String hello(Model model) {
 @RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
-public String displayAllArticles(@ModelAttribute PagedLogFilter filter, Model model) {
+public String displayAllArticles(@ModelAttribute ArticleFilter filter, Model model) {
     log.info(filter.toString());
 //        log.info("from:{}, to:{}, isFastPaging={}", filter.getStartDate(), filter.getEndDate(), filter.isFastPaging());
 //        PagedLogFilter filter = new PagedLogFilter();
@@ -144,7 +144,7 @@ public String displayAllArticles(@ModelAttribute PagedLogFilter filter, Model mo
 //    }
 
     @GetMapping("articles/list")
-    public ResponseEntity<Object> listArticles(@ModelAttribute("paging") PagedLogFilter paging) {
+    public ResponseEntity<Object> listArticles(@ModelAttribute("paging") ArticleFilter paging) {
         List<Article> list = articleRepository.getArticlesPaged(paging);
         log.info(paging.toString());
 

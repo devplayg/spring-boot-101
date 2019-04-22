@@ -7,7 +7,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString(callSuper=true)
-public class PagedLogFilter extends Paging {
+public class ArticleFilter extends Paging {
     private String startDate;
     private String endDate;
     private String title;
