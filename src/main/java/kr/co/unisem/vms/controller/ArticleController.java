@@ -1,26 +1,31 @@
 package kr.co.unisem.vms.controller;
 
+import kr.co.unisem.vms.code.EnumContract;
+import kr.co.unisem.vms.vo.EnumMapper;
+import kr.co.unisem.vms.vo.EnumModel;
+import kr.co.unisem.vms.vo.EnumValue;
 import kr.co.unisem.vms.entity.Article;
 import kr.co.unisem.vms.repository.ArticleRepository;
 import kr.co.unisem.vms.repository.CommonRepository;
-import kr.co.unisem.vms.vo.DbResult;
-import kr.co.unisem.vms.vo.PagedLogFilter;
+import kr.co.unisem.vms.vo.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("app")
 @Slf4j
+@RestController
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
@@ -33,6 +38,59 @@ public class ArticleController {
         List<Article> list = articleRepository.getAllArticles();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    // ============================================================================================
+    private EnumMapper enumMapper;
+
+    public ArticleController(EnumMapper enumMapper) {
+        this.enumMapper = enumMapper;
+    }
+    @GetMapping("mapper")
+    public Map<String, List<EnumValue>> getMapper() {
+        return enumMapper.getAll();
+//        return enumMapper.get("commissionCutting");
+    }
+//
+//    @GetMapping("models")
+//    public List<EnumModel> getModel() {
+//        return Arrays
+//                .stream(EnumContract.CommissionType.class.getEnumConstants())
+//                .collect(Collectors.toList());
+//    }
+//
+//    @GetMapping("/enum")
+//    public Map<String, Object> getEnum() {
+//        Map<String, Object> enums = new LinkedHashMap<>();
+//
+//        Class commissionType = EnumContract.CommissionType.class;
+//        Class commissionCutting = EnumContract.CommissionCutting.class;
+//
+//        enums.put("commissionType", commissionType.getEnumConstants());
+//        enums.put("commissionCutting", commissionCutting.getEnumConstants());
+//        return enums;
+//    }
+
+//
+//    @GetMapping("/value")
+//    public Map<String, List<EnumValue>> getEnumValue() {
+//        Map<String, List<EnumValue>> enumValues = new LinkedHashMap<>();
+//
+//        enumValues.put("commissionType", toEnumValues(EnumContract.CommissionType.class));
+//        enumValues.put("commissionCutting", toEnumValues(EnumContract.CommissionCutting.class));
+//
+//        return enumValues;
+//    }
+//
+//    private List<EnumValue> toEnumValues(Class<? extends EnumModel> e){
+//        return Arrays
+//                .stream(e.getEnumConstants())
+//                .map(EnumValue::new)
+//                .collect(Collectors.toList());
+//    }
+
+
+    // ============================================================================================
+
 
     @RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
     public String displayAllArticles(@ModelAttribute("form-article") PagedLogFilter filter, Model model) {

@@ -26,14 +26,22 @@
                 Fast paging
             </div>
 
-            <select name="category">
-                <option value="1"></option>
+            <select name="category" multiple>
+                <option value="1">Category 1</option>
+                <option value="2" selected> Category 2</option>
+                <option value="3" selected> Category 3</option>
+            </select>
+
+            <select name="org" multiple>
+                <option value="org_a" selected>Org A</option>
+                <option value="org_b">Org B</option>
+                <option value="org_c" selected>Org C</option>
             </select>
 
             <div class="form-group">
-                <input type="checkbox" class="form-control" name="riskLevel[]" value="1" >Normal<br>
-                <input type="checkbox" class="form-control" name="riskLevel[]" value="2" checked>Warning<br>
-                <input type="checkbox" class="form-control" name="riskLevel[]" value="4" checked>Danger<br>
+                <input type="checkbox" class="form-control" name="riskLevel" value="1" >Normal<br>
+                <input type="checkbox" class="form-control" name="riskLevel" value="2" checked>Warning<br>
+                <input type="checkbox" class="form-control" name="riskLevel" value="4" checked>Danger<br>
             </div>
 
             <button type="submit" class="btn btn-primary">Search</button>
@@ -69,9 +77,11 @@
         var filter = {
             startDate: [[ ${filter.startDate} ]],
             endDate: [[ ${filter.endDate} ]],
-            title: [[ ${filter.title} ]],
             fastPaging: [[ ${filter.fastPaging} ]],
+            title: [[ ${filter.title} ]],
             riskLevel:  [[ ${filter.riskLevel} ]],
+            org: [[ ${filter.org} ]],
+            category: [[ ${filter.category} ]],
         };
         /*]]>*/
 
@@ -81,6 +91,7 @@
 
         // console.log(444);
     </script>
+
 </body>
 </html>
 
