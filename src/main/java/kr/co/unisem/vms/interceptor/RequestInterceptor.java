@@ -12,8 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 public class RequestInterceptor extends HandlerInterceptorAdapter {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) {
-        log.info("================ Before request: {} -- {}?{}", req.getMethod(), req.getRequestURI(), req.getQueryString());
-
+        log.info("##### Request: {} -- {}?{}", req.getMethod(), req.getRequestURI(), req.getQueryString());
         return true;
     }
 }
