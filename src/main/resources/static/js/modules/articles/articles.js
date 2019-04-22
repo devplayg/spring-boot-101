@@ -1,6 +1,19 @@
 $(function() {
     // console.log(555);
     //console.log(queryParams());
+
+    updateFilter();
+
+    function updateFilter() {
+
+        $( 'select[name=org]' ).selectpicker('val', filter.org);
+        $( 'select[name=category]' ).selectpicker('val', filter.category);
+
+        $( 'select[name=riskLevel]' ).selectpicker('val', filter.riskLevel);
+
+
+    }
+
     update();
 
     $('.btn-refresh').click(function(e) {

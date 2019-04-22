@@ -1,9 +1,6 @@
 package kr.co.unisem.vms.controller;
 
-import kr.co.unisem.vms.code.EnumContract;
-import kr.co.unisem.vms.vo.EnumMapper;
-import kr.co.unisem.vms.vo.EnumModel;
-import kr.co.unisem.vms.vo.EnumValue;
+import kr.co.unisem.vms.code.EnumOrg;
 import kr.co.unisem.vms.entity.Article;
 import kr.co.unisem.vms.repository.ArticleRepository;
 import kr.co.unisem.vms.repository.CommonRepository;
@@ -16,16 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("app")
 @Slf4j
-@RestController
+//@RestController
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
@@ -40,16 +33,16 @@ public class ArticleController {
     }
 
     // ============================================================================================
-    private EnumMapper enumMapper;
-
-    public ArticleController(EnumMapper enumMapper) {
-        this.enumMapper = enumMapper;
-    }
-    @GetMapping("mapper")
-    public Map<String, List<EnumValue>> getMapper() {
-        return enumMapper.getAll();
-//        return enumMapper.get("commissionCutting");
-    }
+//    private EnumMapper enumMapper;
+//
+//    public ArticleController(EnumMapper enumMapper) {
+//        this.enumMapper = enumMapper;
+//    }
+//    @GetMapping("mapper")
+//    public Map<String, List<EnumValue>> getMapper() {
+//        return enumMapper.getAll();
+////        return enumMapper.get("commissionCutting");
+//    }
 //
 //    @GetMapping("models")
 //    public List<EnumModel> getModel() {
@@ -92,15 +85,18 @@ public class ArticleController {
     // ============================================================================================
 
 
-    @RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
-    public String displayAllArticles(@ModelAttribute("form-article") PagedLogFilter filter, Model model) {
-        log.info(filter.toString());
+//    public String hello(Model model) {
+@RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
+public String displayAllArticles(@ModelAttribute PagedLogFilter filter, Model model) {
+    log.info(filter.toString());
 //        log.info("from:{}, to:{}, isFastPaging={}", filter.getStartDate(), filter.getEndDate(), filter.isFastPaging());
 //        PagedLogFilter filter = new PagedLogFilter();
 //        filter.setStartDate("2018-12-04 00:00");
 //        filter.setEndDate("2018-12-05 23:59");
 //        modelAndView.addObject("filter", filter);
-        model.addAttribute("filter", filter);
+    model.addAttribute("filter", filter);
+//        EnumRiskLevel.RiskLevelType.
+//        model.addAttribute("orgTypes", EnumOrg.OrgType.values());
 //        mv.addObject("filter", filter);
 //        modelAndView.addObject("var1", "var1");
 //        modelAndView.addObject(Arrays.asList("var2", "var3", "var4"));
@@ -110,9 +106,8 @@ public class ArticleController {
 
 //        model.addAttribute("attribute1", "attributeValue1");
 
-        return "articles/articles";
-    }
-//    public String hello(Model model) {
+    return "articles/articles";
+}
 //        //model.addAttribute("name", name);
 //        return "articles";
 //    }

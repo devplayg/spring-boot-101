@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/bootstrap-table/bootstrap-table.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-select/css/bootstrap-select.min.css}">
 </head>
 <body class="container-fluid">
     <div>
@@ -16,8 +17,8 @@
     </div>
 
     <div id="toolbar-article">
-        <form id="form-article" class="form-inline" role="form" method="post" th:action="@{articles}">
-            <input type="text" class="form-control" name="startDate"  th:value="${filter.startDate}"/>
+        <form id="form-article" class="form-inline" role="form" method="post"  th:action="@{articles}">
+            <input type="text" class="form-control" name="startDate" th:value="${filter.startDate}"/>
             <input type="text" class="form-control" name="endDate" th:value="${filter.endDate}"/>
             <input type="text" class="form-control" name="title" th:value="${filter.title}"/>
 
@@ -26,22 +27,39 @@
                 Fast paging
             </div>
 
-            <select name="category" multiple>
+            <select name="category" multiple class="selectpicker">
                 <option value="1">Category 1</option>
-                <option value="2" selected> Category 2</option>
-                <option value="3" selected> Category 3</option>
+                <option value="2">Category 2</option>
+                <option value="3">Category 3</option>
             </select>
 
-            <select name="org" multiple>
-                <option value="org_a" selected>Org A</option>
-                <option value="org_b">Org B</option>
-                <option value="org_c" selected>Org C</option>
+            <select name="org" multiple class="selectpicker" >
+                <option th:each="state : ${T(kr.co.unisem.vms.code.EnumOrg.OrgType).values()}"
+                        th:value="${state}"
+                        th:text="${state.value}">
+                </option>
+            </select>
+
+            <select name="riskLevel" multiple class="selectpicker" >
+                <option th:each="state : ${T(kr.co.unisem.vms.code.EnumRiskLevel.RiskLevel).values()}"
+                        th:value="${state}"
+                        th:text="${state.value}">
+                </option>
             </select>
 
             <div class="form-group">
-                <input type="checkbox" class="form-control" name="riskLevel" value="1" >Normal<br>
-                <input type="checkbox" class="form-control" name="riskLevel" value="2" checked>Warning<br>
-                <input type="checkbox" class="form-control" name="riskLevel" value="4" checked>Danger<br>
+                <div
+                        th:each="state : ${T(kr.co.unisem.vms.code.EnumRiskLevel.RiskLevel).values()}"
+                >
+                    <input type="checkbox"
+                           th:value="${state}"
+                           name="riskLevel"
+                           th:text="${state.value}"
+                    />
+
+                </div>
+
+
             </div>
 
             <button type="submit" class="btn btn-primary">Search</button>
@@ -70,6 +88,7 @@
     <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
     <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
     <script th:src="@{/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
+    <script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.min.js}"></script>
     <script th:src="@{/js/modules/articles/articles.js}"></script>
 
     <script th:inline="javascript">

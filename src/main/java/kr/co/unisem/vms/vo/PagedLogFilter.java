@@ -11,7 +11,7 @@ public class PagedLogFilter extends Paging {
     private String startDate;
     private String endDate;
     private String title;
-    private Integer[] riskLevel;
+    private String[] riskLevel;
     private List<String> org;
     private Integer[] category;
 

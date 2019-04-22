@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
+//@Setter
 @Entity
 @Table(name="articles")
 public class Article implements Serializable {
