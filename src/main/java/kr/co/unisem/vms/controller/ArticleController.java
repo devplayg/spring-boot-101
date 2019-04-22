@@ -1,6 +1,5 @@
 package kr.co.unisem.vms.controller;
 
-import kr.co.unisem.vms.code.EnumOrg;
 import kr.co.unisem.vms.entity.Article;
 import kr.co.unisem.vms.repository.ArticleRepository;
 import kr.co.unisem.vms.repository.CommonRepository;
@@ -18,7 +17,6 @@ import java.util.List;
 @Controller
 @RequestMapping("app")
 @Slf4j
-//@RestController
 public class ArticleController {
     @Autowired
     private ArticleRepository articleRepository;
@@ -150,16 +148,9 @@ public String displayAllArticles(@ModelAttribute ArticleFilter filter, Model mod
 
         if (!paging.isFastPaging()) {
             int total = commonRepository.selectTotalRows();
-//            log.debug("total = {}", total);
             DbResult rs = new DbResult(list, total);
             return new ResponseEntity<>(rs, HttpStatus.OK);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
-
-//    private boolean isAjax(HttpServletRequest request) {
-//        String requestedWithHeader = request.getHeader("X-Requested-With");
-//        return "XMLHttpRequest".equals(requestedWithHeader);
-//    }
 }

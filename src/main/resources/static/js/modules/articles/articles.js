@@ -50,15 +50,22 @@ $(function() {
         // console.log( Object.keys(filter).map(key => key + '=' + filter[key]).join('&') );
         //var url = '/app/articles/list?'+decodeURIComponent($.param(filter));
         var url = '/app/articles/list';
+        url += '?'+$.param(filter, true);
 
         //console.log(url);
 
-        var param = {
-            startDate: filter.startDate,
-            endDate: filter.endDate,
-            title: filter.title,
-        };
-        url += '?'+$.param(param);
+        // var param = {
+        //     startDate: filter.startDate,
+        //     endDate: filter.endDate,
+        //     title: filter.title,
+        // };
+        // url += '?'+$.param(param)+'&category=1&category=2';
+
+        // var param2 = {
+        //     category: filter.category,
+        // };
+        // url += '?'+$.param(param);
+
         console.log(url);
         //
         // var paramArr = {

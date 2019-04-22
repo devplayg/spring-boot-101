@@ -8,9 +8,9 @@ logging:
     max-history: 10
   level:
     root: info
-    kr.co.unisem: debug
+    kr.co.unisem: info
     org:
-      mybatis: debug
+      mybatis: info
       springframework:
         web:
           filter:

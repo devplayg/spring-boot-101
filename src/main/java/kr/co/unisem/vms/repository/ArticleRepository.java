@@ -1,7 +1,7 @@
 package kr.co.unisem.vms.repository;
 
 import kr.co.unisem.vms.entity.Article;
-import kr.co.unisem.vms.vo.Paging;
+import kr.co.unisem.vms.vo.ArticleFilter;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -11,5 +11,5 @@ import java.util.List;
 @Mapper
 public interface ArticleRepository  {
     List<Article> getAllArticles();
-    List<Article> getArticlesPaged(Paging paging);
+    List<Article> getArticlesPaged(ArticleFilter filter);
 }

@@ -18,7 +18,13 @@
         FROM articles
         where true
             <if test="title != null">
-            and title like CONCAT('%',#{title},'%')
+                and title like CONCAT('%', #{title}, '%')
+            </if>
+            <if test="category != null and category.size() > 0">
+                and category IN
+                <foreach collection="category" item="item" separator="," open="(" close=")" index="">
+                    #{item}
+                </foreach>
             </if>
 
         <if test="sort != null">

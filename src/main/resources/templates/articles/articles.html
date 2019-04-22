@@ -42,9 +42,7 @@
 
 
             <div class="form-group">
-                <div
-                        th:each="state : ${T(kr.co.unisem.vms.code.EnumRiskLevel.RiskLevel).values()}"
-                >
+                <div th:each="state : ${T(kr.co.unisem.vms.code.EnumRiskLevel.RiskLevel).values()}">
                     <input type="checkbox"
                            th:value="${state}"
                            name="riskLevel"
