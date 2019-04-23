@@ -3,14 +3,18 @@ package kr.co.unisem.vms.controller;
 import kr.co.unisem.vms.entity.Article;
 import kr.co.unisem.vms.repository.ArticleRepository;
 import kr.co.unisem.vms.repository.CommonRepository;
-import kr.co.unisem.vms.vo.*;
+import kr.co.unisem.vms.vo.ArticleFilter;
+import kr.co.unisem.vms.vo.DbResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -24,18 +28,32 @@ public class ArticleController {
     @Autowired
     private CommonRepository commonRepository;
 
-    @GetMapping("articles/all")
-    public ResponseEntity<List<Article>> getAllArticles() {
-        List<Article> list = articleRepository.getAllArticles();
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
     @RequestMapping(value = "articles", method = { RequestMethod.GET, RequestMethod.POST })
     public String displayAllArticles(@ModelAttribute ArticleFilter filter, Model model) {
         log.info(filter.toString());
         model.addAttribute("filter", filter);
         return "articles/articles";
     }
+
+    @GetMapping("articles/all")
+    public ResponseEntity<List<Article>> getAllArticles() {
+        List<Article> list = articleRepository.getAllArticles();
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping("articles/list")
+    public ResponseEntity<Object> listArticles(@ModelAttribute("paging") ArticleFilter paging) {
+        List<Article> list = articleRepository.getArticlesPaged(paging);
+        log.info(paging.toString());
+
+        if (!paging.isFastPaging()) {
+            int total = commonRepository.selectTotalRows();
+            DbResult rs = new DbResult(list, total);
+            return new ResponseEntity<>(rs, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 
     // ============================================================================================
 //    private EnumMapper enumMapper;
@@ -148,16 +166,5 @@ public class ArticleController {
 //        return mv;
 //    }
 
-    @GetMapping("articles/list")
-    public ResponseEntity<Object> listArticles(@ModelAttribute("paging") ArticleFilter paging) {
-        List<Article> list = articleRepository.getArticlesPaged(paging);
-        log.info(paging.toString());
 
-        if (!paging.isFastPaging()) {
-            int total = commonRepository.selectTotalRows();
-            DbResult rs = new DbResult(list, total);
-            return new ResponseEntity<>(rs, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
 }

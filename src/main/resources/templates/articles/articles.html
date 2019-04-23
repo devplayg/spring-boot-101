@@ -17,8 +17,8 @@
     </div>
 
     <div id="toolbar-article">
-        <form id="form-article" class="form-inline" role="form" method="post" th:action="@{articles}" th:object="${customer}" >
-            <input type="text" class="form-control" name="startDate" th:value="${filter.startDate}"/>
+        <form id="form-article" class="form-inline" role="form" method="post" th:action="@{articles}" th:object="${filter}" >
+            <input type="text" class="form-control" name="startDate" th:value="*{startDate}"/>
             <input type="text" class="form-control" name="endDate" th:value="${filter.endDate}"/>
             <input type="text" class="form-control" name="title" th:value="${filter.title}"/>
 

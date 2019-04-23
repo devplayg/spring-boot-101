@@ -14,10 +14,4 @@ public class ArticleFilter extends Paging {
     private String[] riskLevel;
     private List<String> org;
     private List<Integer> category;
-
-//    public PagedLogFilter(String startDate, String endDate, int offset, int limit, boolean fastPaging) {
-//        super(offset, limit, fastPaging);
-//        this.startDate = startDate;
-//        this.endDate = endDate;
-//    }
 }

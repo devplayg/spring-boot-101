@@ -1,5 +1,6 @@
 package kr.co.unisem.vms.config;
 
+import kr.co.unisem.vms.controller.MemberController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MemberDetailsService memberDetailsService;
+    private MemberController memberDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -53,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             // 로그인
             .formLogin()
-//                 https://docs.spring.io/spring-security/site/docs/current/guides/html5/form-javaconfig.html
+                // https://docs.spring.io/spring-security/site/docs/current/guides/html5/form-javaconfig.html
                 // 로그인 페이지
                 .loginPage("/login")
 
@@ -65,9 +66,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 사용자 비밀번호 파라메터
                 .passwordParameter("app_password")
-                .successForwardUrl("/app/articles")
-                //.successForwardUrl("/members")
+
+                // 로그인 성공 시
+                //.successForwardUrl("/app/articles")
                 .defaultSuccessUrl("/app/articles")
+                //.successForwardUrl("/members")
                 .permitAll()
                 .and()
 

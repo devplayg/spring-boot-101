@@ -20,10 +20,12 @@ mybatis:
     mapper-locations:  mybatis/mapper/**/*.xml
     configuration:
         map-underscore-to-camel-case: true
-
 appconf:
-    homeurl: /app/articles
+    homeuri: /app/articles
 
+server:
+    error:
+        path: /error
 ---
 # 개발모드 설정
 spring:
