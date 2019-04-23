@@ -1,40 +1,72 @@
+# 공통 설정
+spring:
+    # 프로파일
+    profiles:
+        # 제품 운영 모드 (dev|prod)
+        active: dev
+
+    # 템플릿 엔진
+    thymeleaf:
+        prefix: classpath:/templates/
+        suffix: .html
+        encoding: utf-8
+        cache: false
+
+    devtools:
+        livereload:
+            enabled: true
+mybatis:
+    type-aliases-package: kr.co.unisem.vms.mapper
+    mapper-locations:  mybatis/mapper/**/*.xml
+    configuration:
+        map-underscore-to-camel-case: true
+
+appconf:
+    homeurl: /app/articles
+
+---
+# 개발모드 설정
+spring:
+    profiles: dev
+    datasource: # DB 설정
+        url: jdbc:mysql://127.0.0.1:3306/vms?useUnicode=yes&characterEncoding=UTF-8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: Uniiot12!@
 server:
-  port: 80 # 서버 웹포트
+    port: 80 # 서버 웹포트
+logging:
+    file: logs/web-dev.log
+    level:
+        root: info
+        kr.co.unisem: info
+        org:
+            mybatis: info
+            hibernate:
+                SQL: debug
+                type.descriptor.sql.BasicBinder: trace
+
+---
+# 제품모드 설정
+spring:
+    profiles: prod
+    datasource: # DB 설정
+        url: jdbc:mysql://127.0.0.1:3306/vms?useUnicode=yes&characterEncoding=UTF-8
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        username: root
+        password: Uniiot12!@
+
+server:
+    port: 8080 # 서버 웹포트
 
 logging:
-  file:
-    path: logs/web.log
-    max-size: 10M
-    max-history: 10
-  level:
-    root: info
-    kr.co.unisem: info
-    org:
-      mybatis: info
-      hibernate:
-        SQL: debug
-        type:
-          descriptor:
-            sql:
-              BasicBinder: trace
-spring:
-  thymeleaf:
-    prefix: classpath:/templates/
-    suffix: .html
-    encoding: utf-8
-    cache: false
-  devtools:
-    livereload:
-      enabled: true
-  datasource: # DB 설정
-    url: jdbc:mysql://127.0.0.1:3306/vms?useUnicode=yes&characterEncoding=UTF-8
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: Uniiot12!@
-  profiles:
-    active: local
-mybatis:
-  type-aliases-package: kr.co.unisem.vms.mapper
-  mapper-locations:  mybatis/mapper/**/*.xml
-  configuration:
-    map-underscore-to-camel-case: true
+    file: logs/web-prod.log
+    level:
+        root: info
+        kr.co.unisem: info
+        org:
+            mybatis: info
+            hibernate:
+                SQL: debug
+                type.descriptor.sql.BasicBinder: trace
+
