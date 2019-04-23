@@ -5,6 +5,7 @@ spring:
         # 제품 운영 모드 (dev|prod)
         active: dev
 
+    # 다국어
     # 템플릿 엔진
     thymeleaf:
         prefix: classpath:/templates/
@@ -15,6 +16,9 @@ spring:
     devtools:
         livereload:
             enabled: true
+#    messages:
+#        basename: i18n/messages
+#        encoding:  UTF-8
 mybatis:
     type-aliases-package: kr.co.unisem.vms.mapper
     mapper-locations:  mybatis/mapper/**/*.xml

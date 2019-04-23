@@ -7,8 +7,10 @@
     <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/fontawesome.min.css}">
 </head>
 <body class="container-fluid">
-
-    <h3> Sign In</h3>
+<h2 th:text="#{login.welcome}">Some Text</h2>
+<h2 th:text="#{search}">Some Text</h2>
+    <hr>
+    <h4> Sign In</h4>
     <p th:if="${param.error}" class="error">
         Bad Credentials
     </p>

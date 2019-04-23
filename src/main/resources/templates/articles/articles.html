@@ -19,11 +19,11 @@
     <div id="toolbar-article">
         <form id="form-article" class="form-inline" role="form" method="post" th:action="@{articles}" th:object="${filter}" >
             <input type="text" class="form-control" name="startDate" th:value="*{startDate}"/>
-            <input type="text" class="form-control" name="endDate" th:value="${filter.endDate}"/>
-            <input type="text" class="form-control" name="title" th:value="${filter.title}"/>
+            <input type="text" class="form-control" name="endDate" th:value="*{endDate}"/>
+            <input type="text" class="form-control" name="title" th:value="*{title}"/>
 
             <div>
-                <input type="checkbox" class="form-control" name="fastPaging" th:checked="${filter.fastPaging}" />
+                <input type="checkbox" class="form-control" name="fastPaging" th:checked="*{fastPaging}" />
                 Fast paging
             </div>
 
@@ -92,13 +92,7 @@
             category: [[ ${filter.category} ]],
         };
         /*]]>*/
-
-        /*<![CDATA[*/
-            // console.log(333);
-        /*]]>*/
-
-        // console.log(444);
-    </script>
+</script>
 
 </body>
 </html>
