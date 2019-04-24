@@ -16,15 +16,22 @@ import java.util.List;
 
 @Service
 public class MemberController implements UserDetailsService {
+
     @Autowired
     private MemberRepository memberRepo;
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepo.findByUsername(username);
         GrantedAuthority authority = new SimpleGrantedAuthority(member.getRole());
-
         List<GrantedAuthority> authorities =AuthorityUtils.createAuthorityList("ADMIN", "USER");
         UserDetails userDetails = (UserDetails) new User(member.getUserName(), member.getPassword(), authorities);
         return userDetails;
     }
+
+//
+//    @GetMapping("/members")
+//    public ResponseEntity<List<Member>> getAllArticles() {
+//        List<Member> list = memberRepo.findAll();
+//        return new ResponseEntity<>(list, HttpStatus.OK);
+//    }
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Mapper
-public interface MemberRepository  {
+public interface MemberRepository   {
     Member findByUsername(String username);
 }
