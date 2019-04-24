@@ -1,6 +1,6 @@
 package kr.co.unisem.vms.config;
 
-import kr.co.unisem.vms.controller.MemberController;
+import kr.co.unisem.vms.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MemberController memberDetailsService;
+    private MemberService memberDetailsService;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {

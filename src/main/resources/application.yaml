@@ -39,6 +39,11 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
         password: Uniiot12!@
+        tomcat:
+            max-active: 50
+            max-idle: 20
+            min-idle: 15
+
 server:
     port: 80 # 서버 웹포트
 logging:
@@ -61,6 +66,10 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         username: root
         password: Uniiot12!@
+        tomcat:
+            max-active: 50
+            max-idle: 20
+            min-idle: 15
 
 server:
     port: 8080 # 서버 웹포트

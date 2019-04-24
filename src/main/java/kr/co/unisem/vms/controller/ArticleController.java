@@ -168,3 +168,24 @@ public class ArticleController {
 
 
 }
+
+// https://jsonobject.tistory.com/449
+    //@RunWith(SpringRunner.class)
+    //@SpringBootTest
+    //public class JpaDemoApplicationTests {
+    //
+    //    @Autowired
+    //    private UserRepository userRepository;
+    //
+    //    @Test
+    //    @Transactional
+    //    @Rollback(false)
+    //    public void createUser() {
+    //
+    //        User user = new User();
+    //        user.setName("test");
+    //        user.setEmail("test@gmail.com");
+    //        user.setDate(LocalDateTime.now());
+    //        userRepository.save(user);
+    //    }
+    //}
