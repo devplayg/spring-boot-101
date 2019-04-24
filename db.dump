@@ -158,50 +158,79 @@ INSERT INTO `articles` (`article_id`, `title`, `category`, `date`) VALUES
 	(128, 'title', 5, '2019-04-16 04:22:16');
 /*!40000 ALTER TABLE `articles` ENABLE KEYS */;
 
--- 테이블 vms.customers 구조 내보내기
-CREATE TABLE IF NOT EXISTS `customers` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(255) DEFAULT NULL,
-  `last_name` varchar(255) DEFAULT NULL,
-  UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- 테이블 vms.mbr_allowed_ip 구조 내보내기
+CREATE TABLE IF NOT EXISTS `mbr_allowed_ip` (
+  `member_id` int(11) NOT NULL,
+  `ip` varchar(16) NOT NULL,
+  `cidr` int(11) NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`member_id`,`ip`,`cidr`),
+  CONSTRAINT `fk_mbr_allowed_ip_member_id` FOREIGN KEY (`member_id`) REFERENCES `mbr_member` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='4.0.1506.30401';
 
--- 테이블 데이터 vms.customers:~0 rows (대략적) 내보내기
-/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
-
--- 테이블 vms.hibernate_sequence 구조 내보내기
-CREATE TABLE IF NOT EXISTS `hibernate_sequence` (
-  `next_val` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- 테이블 데이터 vms.hibernate_sequence:~0 rows (대략적) 내보내기
-/*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-	(1);
-/*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
+-- 테이블 데이터 vms.mbr_allowed_ip:~0 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `mbr_allowed_ip` DISABLE KEYS */;
+INSERT INTO `mbr_allowed_ip` (`member_id`, `ip`, `cidr`, `created`) VALUES
+	(1, '0.0.0.0', 0, '2019-04-24 09:38:32');
+/*!40000 ALTER TABLE `mbr_allowed_ip` ENABLE KEYS */;
 
 -- 테이블 vms.mbr_member 구조 내보내기
 CREATE TABLE IF NOT EXISTS `mbr_member` (
   `member_id` int(11) NOT NULL AUTO_INCREMENT,
+  `org_id` varchar(16) NOT NULL DEFAULT '',
   `username` varchar(32) NOT NULL,
-  `password` varchar(256) NOT NULL,
-  `name` varchar(64) NOT NULL,
   `email` varchar(256) NOT NULL,
-  `position` int(11) unsigned NOT NULL,
-  `role` varchar(50) NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `login_count` int(11) unsigned NOT NULL DEFAULT 0,
+  `enabled` tinyint(3) NOT NULL DEFAULT 0,
+  `timezone` varchar(64) NOT NULL DEFAULT '',
+  `failed_login_count` int(11) unsigned NOT NULL DEFAULT 0,
+  `last_success_login` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  `last_failed_login` datetime NOT NULL DEFAULT '1970-01-01 00:00:00',
+  `last_read_message` int(11) unsigned NOT NULL DEFAULT 0,
+  `session_id` varchar(64) NOT NULL DEFAULT '',
   `created` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`member_id`),
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 vms.mbr_member:~0 rows (대략적) 내보내기
+-- 테이블 데이터 vms.mbr_member:~1 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `mbr_member` DISABLE KEYS */;
-INSERT INTO `mbr_member` (`member_id`, `username`, `password`, `name`, `email`, `position`, `role`, `enabled`, `created`, `updated`) VALUES
-	(1, 'unisem', '$2a$10$N0eqNiuikWCy9ETQ1rdau.XEELcyEO7kukkfoiNISk/9F7gw6eB0W', 'mumu mu', 'a@a.com', 1, 'ROLE_USER', 1, '2019-04-11 09:13:19', '2019-04-11 01:37:56');
+INSERT INTO `mbr_member` (`member_id`, `org_id`, `username`, `email`, `name`, `login_count`, `enabled`, `timezone`, `failed_login_count`, `last_success_login`, `last_failed_login`, `last_read_message`, `session_id`, `created`, `updated`) VALUES
+	(1, '0', 'unisem', 'wsan@unisem.co.kr', '안원석', 0, 0, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-24 09:34:58', '2019-04-24 09:34:58');
 /*!40000 ALTER TABLE `mbr_member` ENABLE KEYS */;
+
+-- 테이블 vms.mbr_password 구조 내보내기
+CREATE TABLE IF NOT EXISTS `mbr_password` (
+  `member_id` int(11) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `salt` varchar(32) NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`member_id`),
+  CONSTRAINT `fk_mbr_password_member_id` FOREIGN KEY (`member_id`) REFERENCES `mbr_member` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 테이블 데이터 vms.mbr_password:~0 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `mbr_password` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mbr_password` ENABLE KEYS */;
+
+-- 테이블 vms.mbr_role 구조 내보내기
+CREATE TABLE IF NOT EXISTS `mbr_role` (
+  `member_id` int(11) NOT NULL,
+  `role` varchar(32) NOT NULL,
+  `created` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`member_id`,`role`),
+  CONSTRAINT `fk_mbr_role_member_id` FOREIGN KEY (`member_id`) REFERENCES `mbr_member` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='4.0.1506.30401';
+
+-- 테이블 데이터 vms.mbr_role:~0 rows (대략적) 내보내기
+/*!40000 ALTER TABLE `mbr_role` DISABLE KEYS */;
+INSERT INTO `mbr_role` (`member_id`, `role`, `created`) VALUES
+	(1, 'ADMIN', '2019-04-24 09:38:41'),
+	(1, 'SHERIFF', '2019-04-24 09:38:53');
+/*!40000 ALTER TABLE `mbr_role` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
