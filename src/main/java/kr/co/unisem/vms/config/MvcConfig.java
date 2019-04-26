@@ -39,7 +39,7 @@ public class MvcConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         /*공통*/
-        registry.addViewController("/base").setViewName("base");
+        registry.addViewController("/exampleLayout").setViewName("exampleLayout");
     }
 
 //    @Bean
