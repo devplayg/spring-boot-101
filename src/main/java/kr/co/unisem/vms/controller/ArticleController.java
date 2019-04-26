@@ -48,7 +48,7 @@ public class ArticleController {
 
         if (!paging.isFastPaging()) {
             int total = commonRepository.selectTotalRows();
-            DbResult rs = new DbResult(list, total);
+            DbResult rs = new DbResult("", list, total);
             return new ResponseEntity<>(rs, HttpStatus.OK);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
