@@ -1,15 +1,37 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/plugins/bootstrap-table/bootstrap-table.min.css}">
-    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/fontawesome.min.css}">
-    <link rel="stylesheet" th:href="@{/plugins/bootstrap-select/css/bootstrap-select.min.css}">
-</head>
-<body class="container-fluid">
-Member display
-</body>
-</html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base">
 
+<div layout:fragment="content">
+    <table id="table-member" class="table table-bordered table-hover"
+           data-toolbar="#toolbar-member"
+           data-toggle="bootstrap-table"
+           data-show-refresh="true"
+           data-show-columns="true"
+           data-pagination="true"
+           data-side-pagination="client"
+           data-page-size="10"
+    >
+        <thead>
+        <tr>
+            <th data-field="member_id" data-sortable="true">id</th>
+            <th data-field="username" data-sortable="true">Title</th>
+            <th data-field="name" data-sortable="true">category</th>
+            <th data-field="enabled" data-sortable="true">date</th>
+            <th data-field="timezone" data-sortable="true">date</th>
+            <th data-field="created" data-sortable="true">date</th>
+        </tr>
+        </thead>
+    </table>
+</div>
+
+<th:block layout:fragment="css">
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/modules/member/member.js}"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var filter = {
+        };
+        /*]]>*/
+    </script>
+</th:block>

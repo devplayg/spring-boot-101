@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-table/bootstrap-table.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/fontawesome.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/bootstrap-select/css/bootstrap-select.min.css}">
+</head>
+<body class="container-fluid">
+<div>
+    Logged in app: <b th:inline="text" class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+    <form th:action="@{/app-logout}" method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
+
+<div id="toolbar-article">
+    <form id="form-article" class="form-inline" role="form" method="post" th:action="@{articles}" th:object="${filter}">
+        <input type="text" class="form-control" name="startDate" th:value="*{startDate}"/>
+        <input type="text" class="form-control" name="endDate" th:value="*{endDate}"/>
+        <input type="text" class="form-control" name="title" th:value="*{title}"/>
+
+        <div>
+            <input type="checkbox" class="form-control" name="fastPaging" th:checked="*{fastPaging}"/>
+            Fast paging
+        </div>
+
+        <select name="category" multiple class="selectpicker">
+            <option value="1">Category 1</option>
+            <option value="2">Category 2</option>
+            <option value="3">Category 3</option>
+        </select>
+
+        <select name="org" multiple class="selectpicker">
+            <option th:each="state : ${T(kr.co.unisem.vms.code.EnumOrg.OrgType).values()}"
+                    th:value="${state}"
+                    th:text="${state.value}">
+            </option>
+        </select>
+
+
+        <div class="form-group">
+            <div th:each="state : ${T(kr.co.unisem.vms.code.EnumRiskLevel.RiskLevel).values()}">
+                <input type="checkbox"
+                       th:value="${state}"
+                       name="riskLevel"
+                       th:text="${state.value}"
+                />
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+<table id="table-article" class="table table-bordered table-hover"
+       data-toolbar="#toolbar-article"
+       data-toggle="bootstrap-table"
+       data-show-refresh="true"
+       data-show-columns="true"
+       data-pagination="true"
+       data-side-pagination="server"
+       data-page-size="10"
+>
+    <thead>
+    <tr>
+        <th data-field="article_id" data-sortable="true">id</th>
+        <th data-field="title" data-sortable="true">Title</th>
+        <th data-field="category" data-sortable="true">category</th>
+        <th data-field="date" data-sortable="true">date</th>
+    </tr>
+    </thead>
+</table>
+<!--    <button type="button" class="btn btn-primary btn-refresh">Refresh</button>-->
+
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.min.js}"></script>
+<script th:src="@{/js/modules/articles/articles.js}"></script>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var filter = {
+        startDate: [[ ${filter.startDate}]],
+        endDate: [[ ${filter.endDate}]],
+        fastPaging: [[ ${filter.fastPaging}]],
+        title: [[ ${filter.title}]],
+        riskLevel: [[ ${filter.riskLevel}]],
+        org: [[ ${filter.org}]],
+        category: [[ ${filter.category}]],
+    };
+    /*]]>*/
+</script>
+
+</body>
+</html>
+

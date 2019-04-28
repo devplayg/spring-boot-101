@@ -1,5 +1,12 @@
 $(function() {
+
+
     updateFilter();
+    update();
+
+    // var $table = $("#table-article");
+    // console.log($table.data("url"));
+
 
     function updateFilter() {
 
@@ -27,7 +34,6 @@ $(function() {
 
     }
 
-    update();
 
     $('.btn-refresh').click(function(e) {
         // console.log('click');
@@ -42,7 +48,7 @@ $(function() {
 
     function update() {
         console.log(filter);
-        var url = '/app/articles/list';
+        var url = '/test/articles';
         url += '?'+$.param(filter, true);
 
         //console.log(url);
