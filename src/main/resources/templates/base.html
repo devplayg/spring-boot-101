@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lagn="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
+    <title></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" th:href="@{/plugins/bootstrap/css/bootstrap.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/bootstrap-table/bootstrap-table.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/fontawesome/css/fontawesome.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/bootstrap-select/css/bootstrap-select.min.css}">
-    <!--/* Custom CSS */-->
-    <th:block layout:fragment="css"></th:block>
 </head>
 <body class="container-fluid">
 <div>
@@ -24,6 +23,6 @@
 <script th:src="@{/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
 <script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.min.js}"></script>
 <!--/* Custom Javascript */-->
-<th:block layout:fragment="script"></th:block>
+<script layout:fragment="script"></script>
 </body>
 </html>

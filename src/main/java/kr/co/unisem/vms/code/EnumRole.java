@@ -6,21 +6,19 @@ import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
-public class EnumRiskLevel {
+public class EnumRole {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private EnumRiskLevel.RiskLevel riskLevel;
+    private EnumRole.Role role;
 
-    public enum RiskLevel implements EnumModel {
-        RiskLevel1("정상"),
-        RiskLevel2("관심"),
-        RiskLevel3("주의"),
-        RiskLevel4("경계"),
-        RiskLevel5("심각");
+    public enum Role implements EnumModel {
+        Admin("administrator"),
+        Sheriff("sheriff"),
+        User("normal user");
 
         private String value;
 
-        RiskLevel(String value) {
+        Role(String value) {
             this.value = value;
         }
 

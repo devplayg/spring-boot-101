@@ -11,6 +11,7 @@ public class DbResult {
     private int total;
     private List rows;
     private String error;
+    private int affectedRows;
 
     public DbResult(String error) {
         this.error = error;
@@ -20,6 +21,11 @@ public class DbResult {
         this.error = error;
         this.rows = rows;
         this.total = (rows == null) ? 0 : rows.size();
+    }
+
+    public DbResult(String error, int total) {
+        this.error = error;
+        this.total = total; // affected rows
     }
 
     public DbResult(String error, List rows, int total) {

@@ -3,6 +3,8 @@ package kr.co.unisem.vms.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,8 +12,9 @@ import java.util.Collection;
 
 @Entity
 @Getter
+@Setter
 @Table(name="mbr_member")
-@NoArgsConstructor
+@ToString
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 

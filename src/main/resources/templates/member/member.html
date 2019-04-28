@@ -1,6 +1,51 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{base}"
+      lang="ko">
+<head>
+    <title></title>
+    <link rel="stylesheet" th:href="@{/modules/member/member.css}">
+</head>
 
 <div layout:fragment="content">
+    <table border="1">
+        <tr>
+            <th>add</th>
+            <th>edit</th>
+            <th>delete</th>
+        </tr>
+    <tr>
+        <td>
+            <form role="form" th:action="@{/member}" method="post">
+                id: <input type="text" name="username" value="wsahn" /><Br>
+                pw: <input type="password" name="password" value="wonseok"/><Br>
+                name: <input type="text" name="name" value="wonseok"/><Br>
+                enabled: <input type="checkbox" name="enabled" checked="checked"/> <Br>
+
+                roles: <div th:each="state : ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">
+                    <input type="checkbox"
+                           th:value="${state}"
+                           name="role"
+                           th:checked="${state == T(kr.co.unisem.vms.code.EnumRole.Role).Admin}"
+                           th:text="${state.value}"
+                    />
+                </div><Br>
+                <button type="submit" class="btn btn-primary btn-add">Add</button>
+            </form>
+        </td>
+        <td>
+
+            <button class="btn btn-primary btn-add">Update</button>
+        </td>
+
+        <td>
+
+            <button class="btn btn-primary btn-add">Remove</button>
+        </td>
+    </tr>
+    </table>
+    <div id="toolbar-member">
+    </div>
     <table id="table-member" class="table table-bordered table-hover"
            data-toolbar="#toolbar-member"
            data-toggle="bootstrap-table"
@@ -21,17 +66,14 @@
         </tr>
         </thead>
     </table>
-</div>
 
-<th:block layout:fragment="css">
-</th:block>
+</div>
 
 <th:block layout:fragment="script">
     <script th:src="@{/modules/member/member.js}"></script>
     <script th:inline="javascript">
-        /*<![CDATA[*/
         var filter = {
         };
-        /*]]>*/
+        console.log(filter);
     </script>
 </th:block>
