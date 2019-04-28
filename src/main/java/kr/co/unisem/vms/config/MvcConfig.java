@@ -35,13 +35,6 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(localeChangeInterceptor());
     }
 
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        /*공통*/
-        registry.addViewController("/exampleLayout").setViewName("exampleLayout");
-    }
-
 //    @Bean
 //    public LocaleResolver localeResolver() {
 //        SessionLocaleResolver slr = new SessionLocaleResolver();

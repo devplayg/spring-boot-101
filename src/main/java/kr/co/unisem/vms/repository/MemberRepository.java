@@ -1,12 +1,10 @@
 package kr.co.unisem.vms.repository;
 
 import kr.co.unisem.vms.entity.Member;
-import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@Mapper
-@Repository
-public interface MemberRepository {
+@EnableJpaRepositories
+public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findByUsername(String username);
 }

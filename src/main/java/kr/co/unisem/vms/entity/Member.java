@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -14,23 +15,26 @@ import java.io.Serializable;
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="member_id")
-    private Long memberID;
+    private int memberID;
 
-    @Column(name="username")
-    private String userName;
+    @Column(name="username", unique = true)
+    private String username;
 
-    @Column(name="password")
     @JsonIgnore
-    private String password;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "member_id")
+    private MemberPassword password;
 
     @Column(name="role")
-    private String role;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "member_id")
+    private Collection<MemberRole> role;
 
     @Column(name="name")
     private String name;
 
-    @Column(name="enabled")
-    private short enabled;
+    @Column(name="enabled", columnDefinition = "TINYINT(3)")
+    private boolean enabled;
 }

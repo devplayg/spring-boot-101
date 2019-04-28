@@ -1,4 +1,4 @@
-package kr.co.unisem.vms.vo;
+package kr.co.unisem.vms.filter;
 
 import lombok.*;
 

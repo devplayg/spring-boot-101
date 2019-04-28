@@ -17,10 +17,10 @@ public class Article implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="article_id")
     @JsonProperty("article_id")
-    private long articleId;
+    private int articleId;
 
     @Column(name="title")
     @NotBlank(message = "username can't empty!")

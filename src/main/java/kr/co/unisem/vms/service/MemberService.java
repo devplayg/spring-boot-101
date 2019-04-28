@@ -24,10 +24,12 @@ public class MemberService implements UserDetailsService {
     private MemberRepository memberRepo;
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+//        memberRepo.findByUsername()
         Member member = memberRepo.findByUsername(username);
-        GrantedAuthority authority = new SimpleGrantedAuthority(member.getRole());
+//        GrantedAuthority authority = new SimpleGrantedAuthority(member.getRole());
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ADMIN", "USER");
-        UserDetails userDetails = (UserDetails) new User(member.getUserName(), member.getPassword(), authorities);
+        UserDetails userDetails = (UserDetails) new User(member.getUsername(), member.getPassword().getPassword(), authorities);
+
         return userDetails;
     }
 

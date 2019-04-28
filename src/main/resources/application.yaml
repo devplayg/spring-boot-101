@@ -33,6 +33,10 @@ server:
 ---
 # 개발모드 설정
 spring:
+    jpa:
+        show-sql: true
+        hibernate:
+            ddl-auto: validate
     profiles: dev
     datasource: # DB 설정
         url: jdbc:mysql://127.0.0.1:3306/vms?useUnicode=yes&characterEncoding=UTF-8

@@ -1,5 +1,6 @@
-package kr.co.unisem.vms.vo;
+package kr.co.unisem.vms.filter;
 
+import kr.co.unisem.vms.filter.Paging;
 import lombok.*;
 
 import java.util.List;
