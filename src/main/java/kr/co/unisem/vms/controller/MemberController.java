@@ -1,8 +1,7 @@
 package kr.co.unisem.vms.controller;
 
+import kr.co.unisem.vms.code.EnumRole;
 import kr.co.unisem.vms.entity.Member;
-import kr.co.unisem.vms.entity.MemberPassword;
-import kr.co.unisem.vms.entity.MemberRole;
 import kr.co.unisem.vms.filter.MemberFilter;
 import kr.co.unisem.vms.repository.MemberRepository;
 import kr.co.unisem.vms.vo.DbResult;
@@ -29,8 +28,8 @@ public class MemberController {
 
     // 화면
     @GetMapping
-    public String index(@ModelAttribute MemberFilter filter, Model model) {
-        model.addAttribute("member", new Member());
+    public String index(@ModelAttribute("member") Member member, Model model) {
+        model.addAttribute("member", member);
         return "member/member";
     }
 
@@ -44,7 +43,7 @@ public class MemberController {
     // 등록
     @PostMapping
     public ResponseEntity<DbResult> post(@ModelAttribute Member member, Model model) {
-        member.updateRoles();
+//        member.updateRoles();
         log.info("member: {}", member.toString());
         DbResult rs = new DbResult("", 1);
         return new ResponseEntity<>(rs, HttpStatus.OK);

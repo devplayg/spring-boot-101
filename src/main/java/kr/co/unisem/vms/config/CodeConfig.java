@@ -2,17 +2,10 @@ package kr.co.unisem.vms.config;
 
 import kr.co.unisem.vms.code.EnumOrg;
 import kr.co.unisem.vms.code.EnumRiskLevel;
+import kr.co.unisem.vms.code.EnumRole;
 import kr.co.unisem.vms.vo.EnumMapper;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
-
-import java.util.Locale;
 
 @Configuration
 //@SpringBootApplication
@@ -23,6 +16,7 @@ public class CodeConfig {
         EnumMapper enumMapper = new EnumMapper();
         enumMapper.put("orgType", EnumOrg.OrgType.class);
         enumMapper.put("riskLevel", EnumRiskLevel.RiskLevel.class);
+        enumMapper.put("role", EnumRole.Role.class);
         return enumMapper;
     }
 

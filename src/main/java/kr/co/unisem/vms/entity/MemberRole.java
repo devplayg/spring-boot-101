@@ -1,5 +1,6 @@
 package kr.co.unisem.vms.entity;
 
+import kr.co.unisem.vms.code.EnumRole;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,13 +28,14 @@ public class MemberRole implements Serializable {
     private Member member;
 
     @Column
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private EnumRole.Role role;
 
     @Column
     @CreationTimestamp
     private LocalDateTime created;
 
-    public MemberRole(String role) {
+    public MemberRole(EnumRole.Role role) {
         this.role = role;
     }
 }

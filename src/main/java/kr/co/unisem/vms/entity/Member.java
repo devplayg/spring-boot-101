@@ -39,10 +39,10 @@ public class Member implements Serializable {
     private MemberPassword password = new MemberPassword();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-    private List<MemberRole> role = new ArrayList<>();
+    private List<MemberRole> roleList = new ArrayList<>();
 
-    @Transient
-    private List<String> roles;
+//    @Transient
+//    private List<String> roles;
 
     @Column(columnDefinition = "TINYINT(3)")
     private boolean enabled;
@@ -59,11 +59,12 @@ public class Member implements Serializable {
 //        this.role.add(new MemberRole(role));
 //    }
 //
-    public void updateRoles() {
-        for (String r : this.roles) {
-            this.role.add(new MemberRole(r));
-        }
-    }
+//    public void updateRoles() {
+//        for (String r : this.roles) {
+//            this.role.add(new MemberRole(r));
+//        }
+//    }
+
 
 
 //    public void setRole(String role) {
