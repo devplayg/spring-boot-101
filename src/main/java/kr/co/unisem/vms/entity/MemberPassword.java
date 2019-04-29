@@ -23,11 +23,15 @@ public class MemberPassword implements Serializable {
     @Column(name="password_id")
     private int passwordID;
 
-    @Column(name="member_id")
-    private int memberID;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column
     private String password;
+
+    @Column
+    private String salt = "";
 
     @Column
     @CreationTimestamp
@@ -37,7 +41,15 @@ public class MemberPassword implements Serializable {
     @UpdateTimestamp
     private LocalDateTime updated;
 
-    public MemberPassword(String password) {
-        this.password = password;
-    }
+//    public MemberPassword(String password) {
+//        this.password = password;
+//    }
+
+//    public void setMemberID() {
+//        this.memberID = this.member.getMemberID();
+//    }
+//
+//    public int getMemberID() {
+//        return this.member.getMemberID();
+//    }
 }

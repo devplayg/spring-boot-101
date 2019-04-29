@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name="mbr_role")
+@Table(name = "mbr_role")
 @Getter
 @Setter
 @ToString
@@ -19,11 +19,12 @@ public class MemberRole implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="role_id")
+    @Column(name = "role_id")
     private int roleID;
 
-    @Column(name="member_id")
-    private int memberID;
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column
     private String role;
