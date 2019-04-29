@@ -14,36 +14,34 @@
             <th>edit</th>
             <th>delete</th>
         </tr>
-    <tr>
-        <td>
-            <form role="form" th:action="@{/member}" method="post" th:object="${member}">
-                username: <input type="text" th:name="username"value="wsahn"/><Br>
-                password: <input type="password" name="password" value="my_private_password"/><Br>
-                name: <input type="text" name="name" value="Won-Seok"/><Br>
-                email: <input type="text" name="email" value="wsan@wsan.co.kr"/><Br>
-                enabled: <input type="checkbox" name="enabled" checked="checked"/> <Br>
+        <tr>
+            <td>
+                <form role="form" th:action="@{/member}" method="post" th:object="${member}">
+                    username: <input type="text" th:name="username " value="wsahn"/><Br>
+                    password: <input type="text" th:name="|password.password|" value="my_private_password"><br>
+                    name: <input type="text" th:name="name" value="Won-Seok"/><Br>
+                    email: <input type="text" th:name="email" value="wsan@wsan.co.kr"/><Br>
+                    enabled: <input type="checkbox" th:name="enabled" checked="checked"/> <Br>
 
-                roles: <div th:each="role, row : ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">
-                <input type="checkbox"
-                       th:value="${role}"
-                       th:checked="${role == T(kr.co.unisem.vms.code.EnumRole.Role).Admin}"
-                       th:text="${role.value}"
-                />
-                </div>
+                    roles:
+                    <div th:each="role, stat : ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">
+                        <input type="checkbox"
+                               th:name="|roleList[${stat.index}].role|"
+                               th:value="${role}"
+                               th:text="${role.value}"
+                        />
+                    </div>
 
-                <button type="submit" class="btn btn-primary btn-add">Add</button>
-            </form>
-        </td>
-        <td>
-
-            <button class="btn btn-primary btn-add">Update</button>
-        </td>
-
-        <td>
-
-            <button class="btn btn-primary btn-add">Remove</button>
-        </td>
-    </tr>
+                    <button type="submit" class="btn btn-primary btn-add">Add</button>
+                </form>
+            </td>
+            <td>
+                <button class="btn btn-primary btn-add">Update</button>
+            </td>
+            <td>
+                <button class="btn btn-primary btn-add">Remove</button>
+            </td>
+        </tr>
     </table>
     <div id="toolbar-member">
     </div>
@@ -73,8 +71,7 @@
 <th:block layout:fragment="script">
     <script th:src="@{/modules/member/member.js}"></script>
     <script th:inline="javascript">
-        var filter = {
-        };
+        var filter = {};
         console.log(filter);
     </script>
 </th:block>

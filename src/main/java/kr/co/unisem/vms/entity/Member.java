@@ -35,22 +35,19 @@ public class Member implements Serializable {
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-    @JoinColumn(name = "member_id")
-    private MemberPassword password = new MemberPassword();
+    @JoinColumn(name = "member_id", updatable = false, insertable = true)
+    private MemberPassword password;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-    private List<MemberRole> roleList = new ArrayList<>();
-
-//    @Transient
-//    private List<String> roles;
+    private List<MemberRole> roleList;
 
     @Column(columnDefinition = "TINYINT(3)")
     private boolean enabled;
 
 
-    public void setPassword(String password) {
-        this.password.setPassword(password);
-    }
+//    public void setPassword(String password) {
+//        this.password.setPassword(password);
+//    }
 //    public void setRole(List<MemberRole> role) {
 //        this.role = role;
 //    }
@@ -64,7 +61,6 @@ public class Member implements Serializable {
 //            this.role.add(new MemberRole(r));
 //        }
 //    }
-
 
 
 //    public void setRole(String role) {

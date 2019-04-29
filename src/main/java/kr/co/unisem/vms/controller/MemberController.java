@@ -45,6 +45,23 @@ public class MemberController {
     public ResponseEntity<DbResult> post(@ModelAttribute Member member, Model model) {
 //        member.updateRoles();
         log.info("member: {}", member.toString());
+//        member.setMemberID(member.);
+//        for(TestSubEntity subEntity : subs){
+//            subEntity.setTestEntity(this);
+//        }
+//        entity
+
+//        Post post = entityManager.getReference(Post.class, 1L);
+//
+//        PostComment comment = new PostComment();
+//        comment.setId( 1L );
+//        comment.setPost( post );
+//        comment.setReview( "A must read!" );
+//        entityManager.persist( comment );
+//
+//        memberRepository.save(member);
+
+
         DbResult rs = new DbResult("", 1);
         return new ResponseEntity<>(rs, HttpStatus.OK);
 

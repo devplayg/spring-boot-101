@@ -2,6 +2,7 @@ package kr.co.unisem.vms.entity;
 
 import kr.co.unisem.vms.code.EnumRole;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 public class MemberRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -35,7 +37,7 @@ public class MemberRole implements Serializable {
     @CreationTimestamp
     private LocalDateTime created;
 
-    public MemberRole(EnumRole.Role role) {
-        this.role = role;
-    }
+//    public MemberRole(EnumRole.Role role) {
+//        this.role = role;
+//    }
 }

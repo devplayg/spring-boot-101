@@ -33,6 +33,7 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1")
     compile('org.springframework.boot:spring-boot-starter-data-rest')
+    compile("com.querydsl:querydsl-jpa")
 
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
