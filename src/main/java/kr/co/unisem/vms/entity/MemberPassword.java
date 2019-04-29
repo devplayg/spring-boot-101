@@ -3,6 +3,8 @@ package kr.co.unisem.vms.entity;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,7 +26,18 @@ public class MemberPassword implements Serializable {
     @Column(name="member_id")
     private int memberID;
 
+    @Column
     private String password;
 
+    @Column
+    @CreationTimestamp
     private LocalDateTime created;
+
+    @Column
+    @UpdateTimestamp
+    private LocalDateTime updated;
+
+    public MemberPassword(String password) {
+        this.password = password;
+    }
 }

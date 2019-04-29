@@ -17,9 +17,10 @@
     <tr>
         <td>
             <form role="form" th:action="@{/member}" method="post">
-                id: <input type="text" name="username" value="wsahn" /><Br>
-                pw: <input type="password" name="password" value="wonseok"/><Br>
-                name: <input type="text" name="name" value="wonseok"/><Br>
+                username: <input type="text" name="username" value="wsahn" /><Br>
+                password: <input type="password" name="password" value="my_private_password"/><Br>
+                name: <input type="text" name="name" value="Won-Seok"/><Br>
+                email: <input type="text" name="email" value="wsan@wsan.co.kr"/><Br>
                 enabled: <input type="checkbox" name="enabled" checked="checked"/> <Br>
 
                 roles: <div th:each="state : ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">

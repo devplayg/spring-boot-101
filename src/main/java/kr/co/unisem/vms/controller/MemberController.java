@@ -1,6 +1,5 @@
 package kr.co.unisem.vms.controller;
 
-import kr.co.unisem.vms.code.EnumRole;
 import kr.co.unisem.vms.entity.Member;
 import kr.co.unisem.vms.filter.MemberFilter;
 import kr.co.unisem.vms.repository.MemberRepository;
@@ -43,6 +42,7 @@ public class MemberController {
     // 등록
     @PostMapping
     public ResponseEntity<DbResult> post(@ModelAttribute Member member, Model model) {
+//        memberRepository.save(member);
         DbResult rs = new DbResult("", 1);
         log.info("member: {}", member.toString());
         return new ResponseEntity<>(rs, HttpStatus.OK);

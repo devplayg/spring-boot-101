@@ -36,6 +36,7 @@ spring:
     jpa:
         show-sql: true
         hibernate:
+            # 스키마 유효성 체크
             ddl-auto: validate
         open-in-view: false
     profiles: dev

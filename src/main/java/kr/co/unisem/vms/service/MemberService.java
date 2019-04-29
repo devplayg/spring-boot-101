@@ -33,6 +33,22 @@ public class MemberService implements UserDetailsService {
         return userDetails;
     }
 
+//    https://hellokoding.com/registration-and-login-example-with-spring-security-spring-boot-spring-data-jpa-hsql-jsp/
+//
+//    @Override
+//    @Transactional(readOnly = true)
+//    public UserDetails loadUserByUsername(String username) {
+//        User user = userRepository.findByUsername(username);
+//        if (user == null) throw new UsernameNotFoundException(username);
+//
+//        Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
+//        for (Role role : user.getRoles()){
+//            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+//        }
+//
+//        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
+//    }
+
 
 //    @GetMapping("/members")
 //    public ResponseEntity<List<Member>> getAllArticles() {

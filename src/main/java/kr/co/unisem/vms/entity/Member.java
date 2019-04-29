@@ -1,13 +1,14 @@
 package kr.co.unisem.vms.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -25,6 +26,12 @@ public class Member implements Serializable {
     @Column(name="username", unique = true)
     private String username;
 
+    @Column(nullable=false, length=100)
+    private String email;
+
+    @Column(name="name")
+    private String name;
+
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "member_id")
@@ -35,9 +42,21 @@ public class Member implements Serializable {
     @JoinColumn(name = "member_id")
     private Collection<MemberRole> role;
 
-    @Column(name="name")
-    private String name;
-
-    @Column(name="enabled", columnDefinition = "TINYINT(3)")
+    @Column(columnDefinition = "TINYINT(3)")
     private boolean enabled;
+
+    public void setPassword(String password) {
+        if (this.password == null) {
+            this.password = new MemberPassword(password);
+        } else {
+            this.password.setPassword(password);
+        }
+    }
+
+    public void setRole(String role) {
+        if (this.role == null) {
+            this.role = new ArrayList<MemberRole>();
+        }
+        this.role.add(new MemberRole(role));
+    }
 }
