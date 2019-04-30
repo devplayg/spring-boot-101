@@ -36,8 +36,4 @@ public class MemberRole implements Serializable {
     @Column
     @CreationTimestamp
     private LocalDateTime created;
-
-//    public MemberRole(EnumRole.Role role) {
-//        this.role = role;
-//    }
 }

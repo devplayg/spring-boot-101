@@ -1,7 +1,7 @@
 package kr.co.unisem.vms.controller;
 
-import kr.co.unisem.vms.code.EnumRole;
 import kr.co.unisem.vms.entity.Member;
+import kr.co.unisem.vms.entity.MemberRole;
 import kr.co.unisem.vms.filter.MemberFilter;
 import kr.co.unisem.vms.repository.MemberRepository;
 import kr.co.unisem.vms.vo.DbResult;
@@ -42,54 +42,14 @@ public class MemberController {
 
     // 등록
     @PostMapping
-    public ResponseEntity<DbResult> post(@ModelAttribute Member member, Model model) {
-//        member.updateRoles();
-        log.info("member: {}", member.toString());
-//        member.setMemberID(member.);
-//        for(TestSubEntity subEntity : subs){
-//            subEntity.setTestEntity(this);
-//        }
-//        entity
-
-//        Post post = entityManager.getReference(Post.class, 1L);
-//
-//        PostComment comment = new PostComment();
-//        comment.setId( 1L );
-//        comment.setPost( post );
-//        comment.setReview( "A must read!" );
-//        entityManager.persist( comment );
-//
-//        memberRepository.save(member);
-
-
+    public ResponseEntity<DbResult> post(@ModelAttribute Member member) {
+        for (MemberRole r : member.getRoleList()) {
+            r.setMember(member);
+        }
+        member.getPassword().setMember(member);
+        memberRepository.save(member);
         DbResult rs = new DbResult("", 1);
         return new ResponseEntity<>(rs, HttpStatus.OK);
-
-
-//        Member m = new Member();
-//        m.setEmail(member.getEmail());
-//        m.setName(member.getName());
-//        m.setEnabled(m.isEnabled());
-//        m.setUsername(member.getUsername());
-//        MemberPassword pw = new MemberPassword(member.getPassword().getPassword());
-//        m.addToPassword(pw);
-//        MemberRole r = new MemberRole("Admin");
-//        m.addToRole(r);
-
-
-
-//        m.setPassword(member.getEmail());
-//        log.info("member: {}", member.toString());
-//        log.info("password: {}", member.getPassword().toString());
-//        memberRepository.save(m);
-//        memberRepository.save(member);
-//        DbResult rs = new DbResult("", 1);
-//        return new ResponseEntity<>(rs, HttpStatus.OK);
-
-
-
-
-
     }
 
 

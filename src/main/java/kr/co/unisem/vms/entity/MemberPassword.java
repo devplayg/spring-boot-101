@@ -40,16 +40,4 @@ public class MemberPassword implements Serializable {
     @Column
     @UpdateTimestamp
     private LocalDateTime updated;
-
-//    public MemberPassword(String password) {
-//        this.password = password;
-//    }
-
-//    public void setMemberID() {
-//        this.memberID = this.member.getMemberID();
-//    }
-//
-//    public int getMemberID() {
-//        return this.member.getMemberID();
-//    }
 }
