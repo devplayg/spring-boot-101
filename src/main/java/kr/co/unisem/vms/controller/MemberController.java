@@ -43,10 +43,15 @@ public class MemberController {
     // 등록
     @PostMapping
     public ResponseEntity<DbResult> post(@ModelAttribute Member member) {
+        log.info("member: {}", member.toString());
         for (MemberRole r : member.getRoleList()) {
             r.setMember(member);
         }
         member.getPassword().setMember(member);
+//        log.info("member: {}", member.toString());
+
+
+
         memberRepository.save(member);
         DbResult rs = new DbResult("", 1);
         return new ResponseEntity<>(rs, HttpStatus.OK);
