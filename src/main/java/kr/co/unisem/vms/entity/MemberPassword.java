@@ -14,14 +14,14 @@ import java.time.LocalDateTime;
 @Table(name="mbr_password")
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "member") // 순환참조 차단
 public class MemberPassword implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="password_id")
-    private int passwordID;
+    private long passwordID;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")

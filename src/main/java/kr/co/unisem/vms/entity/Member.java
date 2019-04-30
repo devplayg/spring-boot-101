@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -16,13 +17,14 @@ import java.util.List;
 @Table(name = "mbr_member")
 @ToString
 @NoArgsConstructor
+@Slf4j
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private int memberID;
+    private long memberID;
 
     @Column(name = "username", unique = true)
     private String username;
@@ -35,7 +37,7 @@ public class Member implements Serializable {
 
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
-    @JoinColumn(name = "member_id", updatable = false, insertable = true)
+    @JoinColumn(name = "member_id")
     private MemberPassword password;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")

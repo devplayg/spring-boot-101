@@ -20,7 +20,7 @@ public class Article implements Serializable {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     @Column(name="article_id")
     @JsonProperty("article_id")
-    private int articleId;
+    private long articleId;
 
     @Column(name="title")
     @NotBlank(message = "username can't empty!")

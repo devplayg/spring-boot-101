@@ -15,15 +15,14 @@ import java.time.LocalDateTime;
 @Table(name = "mbr_role")
 @Getter
 @Setter
-@ToString
-@NoArgsConstructor
+@ToString(exclude = "member")  // 순환참조 차단
 public class MemberRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "role_id")
-    private int roleID;
+    private long roleID;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

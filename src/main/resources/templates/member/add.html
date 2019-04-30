@@ -1,0 +1,29 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{base}"
+      lang="ko">
+<head>
+    <title></title>
+    <link rel="stylesheet" th:href="@{/modules/member/member.css}">
+</head>
+
+<div layout:fragment="content">
+    <form role="form" th:action="@{/member}" method="post" th:object="${member}">
+        username: <input type="text" th:name="username" value="wsahn"/><Br>
+        password: <input type="text" th:name="|password.password|" value="my_private_password"><br>
+        name: <input type="text" th:name="name" value="Won-Seok"/><Br>
+        email: <input type="text" th:name="email" value="wsan@wsan.co.kr"/><Br>
+        enabled: <input type="checkbox" th:name="enabled" checked="checked"/> <Br>
+
+        roles:
+        <div th:each="role, stat : ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">
+            <input type="checkbox"
+                   th:name="|roleList[${stat.index}].role|"
+                   th:value="${role}"
+                   th:text="${role.value}"
+            />
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-add">Add</button>
+    </form>
+</div>
