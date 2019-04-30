@@ -47,6 +47,4 @@ public class Member implements Serializable {
     public Member(int memberID) {
         this.memberID = memberID;
     }
-
-
 }
