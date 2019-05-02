@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,10 +36,10 @@ public class MemberController {
     @GetMapping("edit/{id}")
     public String index(@PathVariable("id") long memberID, Model model) {
         Optional<Member> member = memberRepository.findById(memberID);
+        log.info("member: {}", member.get().toString());
         if (member.isPresent()) {
             model.addAttribute("member", member.get());
         } else {
-
         }
         return "member/edit";
     }

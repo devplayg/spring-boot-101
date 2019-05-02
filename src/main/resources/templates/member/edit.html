@@ -14,6 +14,7 @@
         name: <input type="text" th:name="name" th:value="*{name}" /><Br>
         email: <input type="text" th:name="email" th:value="*{email}" /><Br>
         enabled: <input type="checkbox" th:name="enabled" th:checked="*{enabled}" /> <Br>
+        <div th:text="*{roleList}"/>
 
         roles:
         <div th:each="role, stat : ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">
@@ -21,6 +22,7 @@
                    th:name="|roleList[${stat.index}].role|"
                    th:value="${role}"
                    th:text="${role.value}"
+                   th:checked="${#lists.contains(*{roleList}, ${role.roleID})}"
             />
         </div>
 

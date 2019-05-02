@@ -40,7 +40,7 @@ public class Member implements Serializable {
     @JoinColumn(name = "member_id")
     private MemberPassword password;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "member")
     private List<MemberRole> roleList;
 
     @Column(columnDefinition = "TINYINT(3)")
