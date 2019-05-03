@@ -36,8 +36,8 @@ public class MemberController {
     @GetMapping("edit/{id}")
     public String index(@PathVariable("id") long memberID, Model model) {
         Optional<Member> member = memberRepository.findById(memberID);
-        log.info("member: {}", member.get().toString());
         if (member.isPresent()) {
+            log.info("member: {}", member.get().toString());
             model.addAttribute("member", member.get());
         } else {
         }
