@@ -1,5 +1,6 @@
 package kr.co.unisem.vms.controller;
 
+import kr.co.unisem.vms.code.EnumRole;
 import kr.co.unisem.vms.entity.Member;
 import kr.co.unisem.vms.entity.MemberRole;
 import kr.co.unisem.vms.filter.MemberFilter;
@@ -14,6 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +38,14 @@ public class MemberController {
     // 화면 (수정)
     @GetMapping("edit/{id}")
     public String index(@PathVariable("id") long memberID, Model model) {
+//        List<MemberRole> list = new ArrayList<>();
+//        list.add(new MemberRole(EnumRole.Role.Sheriff, LocalDateTime.now()));
+//        list.add(new MemberRole(EnumRole.Role.User, LocalDateTime.now().minusDays(1)));
+//        log.info("list={}", list);
+//        log.info("Admin exists={}", list.contains(new MemberRole(EnumRole.Role.Admin)));
+//        log.info("Sheriff exists={}", list.contains(new MemberRole(EnumRole.Role.Sheriff)));
+//        log.info("User exists={}", list.contains(new MemberRole(EnumRole.Role.User)));
+
         Optional<Member> member = memberRepository.findById(memberID);
         if (member.isPresent()) {
             log.info("member: {}", member.get().toString());
@@ -103,3 +114,5 @@ public class MemberController {
 
     // 삭제
 }
+
+

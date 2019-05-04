@@ -1,6 +1,10 @@
 package kr.co.unisem.vms.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javassist.runtime.Inner;
+import kr.co.unisem.vms.code.EnumOrg;
+import kr.co.unisem.vms.code.EnumRole;
+import kr.co.unisem.vms.vo.EnumValue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,5 +53,14 @@ public class Member implements Serializable {
 
     public Member(int memberID) {
         this.memberID = memberID;
+    }
+
+    @Transient
+    public List<EnumRole.Role> getRoleEnumList() {
+        List<EnumRole.Role> list = new ArrayList<>();
+        for (MemberRole role : roleList) {
+            list.add(role.getRole());
+        }
+        return list;
     }
 }

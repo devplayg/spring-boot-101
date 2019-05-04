@@ -18,13 +18,12 @@
 
 
         roles:
-        <div th:each="role, stat : ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">
+        <div th:each="role, stat: ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">
             <input type="checkbox"
-                   th:value="${role}"
                    th:name="|roleList[${stat.index}].role|"
+                   th:value="${role}"
                    th:text="${role.value}"
-                   th:checked="${role.getKey()} == 'Admin'"
-
+                   th:checked="${#lists.contains(#object.getRoleEnumList(), role)}"
             />
         </div>
         <button type="submit" class="btn btn-primary btn-add">Add</button>
