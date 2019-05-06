@@ -1,10 +1,12 @@
 package kr.co.unisem.vms.controller;
 
-import kr.co.unisem.vms.code.EnumRole;
 import kr.co.unisem.vms.entity.Member;
 import kr.co.unisem.vms.entity.MemberRole;
+import kr.co.unisem.vms.exception.ResourceNotFoundException;
 import kr.co.unisem.vms.filter.MemberFilter;
+import kr.co.unisem.vms.repository.MemberPasswordRepository;
 import kr.co.unisem.vms.repository.MemberRepository;
+import kr.co.unisem.vms.repository.MemberRoleRepository;
 import kr.co.unisem.vms.vo.DbResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,22 +16,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("member")
 @Slf4j
 public class MemberController {
 
+    @PersistenceContext
+    private EntityManager em;
+
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private MemberRoleRepository memberRoleRepository;
+
+    @Autowired
+    private MemberPasswordRepository memberPasswordRepository;
+
     // 화면 (등록)
-    @GetMapping("add")
+    @GetMapping("new")
     public String index(@ModelAttribute("member") Member member, Model model) {
         model.addAttribute("member", member);
         return "member/add";
@@ -38,29 +49,109 @@ public class MemberController {
     // 화면 (수정)
     @GetMapping("edit/{id}")
     public String index(@PathVariable("id") long memberID, Model model) {
-//        List<MemberRole> list = new ArrayList<>();
-//        list.add(new MemberRole(EnumRole.Role.Sheriff, LocalDateTime.now()));
-//        list.add(new MemberRole(EnumRole.Role.User, LocalDateTime.now().minusDays(1)));
-//        log.info("list={}", list);
-//        log.info("Admin exists={}", list.contains(new MemberRole(EnumRole.Role.Admin)));
-//        log.info("Sheriff exists={}", list.contains(new MemberRole(EnumRole.Role.Sheriff)));
-//        log.info("User exists={}", list.contains(new MemberRole(EnumRole.Role.User)));
-
-        Optional<Member> member = memberRepository.findById(memberID);
-        if (member.isPresent()) {
-            log.info("member: {}", member.get().toString());
-            model.addAttribute("member", member.get());
-        } else {
-        }
+        Member member = memberRepository.findById(memberID)
+                .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
+        log.info("member: {}", member.toString());
+        model.addAttribute("member", member);
         return "member/edit";
     }
 
+    // 수정
+//    @PatchMapping("{memberID}")
+//    public ResponseEntity<DbResult> patch(@ModelAttribute("member") Member member, @PathVariable("memberID") long memberID) {
+//        log.info("memberID: {}", memberID);
+//        log.info("member: {}", member.toString());
+//
+//        memberRepository.save(member);
+//
+//        DbResult rs = new DbResult("", 0);
+//        return new ResponseEntity<>(rs, HttpStatus.OK);
+//    }
+
+    @PatchMapping("{memberID}")
+    public ResponseEntity<DbResult> updateMember(@ModelAttribute("member") Member input, @PathVariable("memberID") long memberID) {
+        log.info("input: {}", input.toString());
+//        Optional<Member> memberOpt = memberRepository.findById(memberID);
+//        if (memberOpt.isPresent()) {
+//            Member member = memberOpt.get();
+//            log.info("member: {}", member.toString());
+//            member.setName(input.getName());
+//            member.setEmail(input.getEmail());
+//            member.setEnabled(input.isEnabled());
+//            log.info("member: {}", member.toString());
+//            memberRepository.save(input);
+//            rs.setAffectedRows(1);
+//
+//        } else {
+//
+//        }
+
+
+        Member member = memberRepository.findById(memberID)
+                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", memberID));
+        member.setName(input.getName());
+        member.setEmail(input.getEmail());
+        member.setEnabled(input.isEnabled());
+        memberRepository.save(member);
+
+
+//        memberRoleRepository.deleteAll();
+        memberRoleRepository.deleteAll(member.getRoleList());
+//        memberRoleRepository.flush();
+//        memberRoleRepository.sa
+            List<MemberRole> list = new ArrayList<>();
+            for (MemberRole r : input.getRoleList()) {
+                if (r.getRole() != null) {
+                    r.setMember(member);
+                    list.add(r);
+                }
+            }
+            if (list.size() > 0) {
+                memberRoleRepository.saveAll(list);
+            }
+
+//        memberRoleRepository.saveAll(input.getRoleList());
+
+
+        DbResult rs = new DbResult("", 0);
+//        Optional<Member> memberOpt = memberRepository.findById(memberID);
+//        if (memberOpt.isPresent()) {
+//            Member member = memberOpt.get();
+//        member.setName(input.getName());
+//        member.setEmail(input.getEmail());
+//            rs.setAffectedRows(1);
+//
+//        } else {
+//
+//        }
+
+//        memberRepository.save(input);
+
+//        log.info("memberID: {}", memberID);
+//        log.info("input: {}", input.toString());
+//                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", memberID));
+
+
+//        Member changed = memberRepository.save(member);
+//        return changed;
+
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
+
     // 조회 - 목록
-    @GetMapping("/members")
+    @GetMapping("members")
     public ResponseEntity<List<Member>> list(@ModelAttribute("filter") MemberFilter filter) {
         List<Member> list = memberRepository.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    //
+//    @GetMapping("/notes/{id}")
+//    public Note getNoteById(@PathVariable(value = "id") Long noteId) {
+//        return noteRepository.findById(noteId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
+//    }
+
 
     // 조회 - 단일
 //    @GetMapping("/member/{id}")
@@ -102,17 +193,8 @@ public class MemberController {
     }
 
 
-    // 수정
-    @PutMapping
-    public ResponseEntity<DbResult> put(@ModelAttribute Member member) {
-        log.info("member: {}", member.toString());
-//        member.setName();
-
-        DbResult rs = new DbResult("", 0);
-        return new ResponseEntity<>(rs, HttpStatus.OK);
-    }
-
     // 삭제
 }
+
 
 

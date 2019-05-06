@@ -12,6 +12,7 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Slf4j
+// @JsonIgnoreProperties(value = {"created", "updated"},
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -32,12 +34,15 @@ public class Member implements Serializable {
     private long memberID;
 
     @Column(name = "username", unique = true)
+    @NotBlank
     private String username;
 
     @Column(nullable = false, length = 100)
+    @NotBlank
     private String email;
 
     @Column(name = "name")
+    @NotBlank
     private String name;
 
     @JsonIgnore
@@ -45,7 +50,7 @@ public class Member implements Serializable {
     @JoinColumn(name = "member_id")
     private MemberPassword password;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "member")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "member")
     private List<MemberRole> roleList;
 
     @Column(columnDefinition = "TINYINT(3)")

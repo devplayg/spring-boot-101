@@ -34,4 +34,3 @@ public class DbResult {
         this.total = total;
     }
 }
-

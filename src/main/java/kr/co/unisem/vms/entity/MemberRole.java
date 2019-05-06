@@ -1,6 +1,5 @@
 package kr.co.unisem.vms.entity;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import kr.co.unisem.vms.code.EnumRole;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;

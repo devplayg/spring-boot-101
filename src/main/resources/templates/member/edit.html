@@ -9,6 +9,7 @@
 
 <div layout:fragment="content">
     <form role="form" th:object="${member}">
+        memberID: <input type="text" th:name="member_id" th:value="*{memberID}"/><Br>
         username: <input type="text" th:name="username" th:value="*{username}"/><Br>
         password: <input type="text" th:name="|password.password|" th:value="*{password.password}"><br>
         name: <input type="text" th:name="name" th:value="*{name}" /><Br>
@@ -26,6 +27,31 @@
                    th:checked="${#lists.contains(#object.getRoleEnumList(), role)}"
             />
         </div>
-        <button type="submit" class="btn btn-primary btn-add">Add</button>
+        <button type="submit" class="btn btn-primary btn-update">update</button>
     </form>
 </div>
+
+
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        $('form').on('submit', function(e){
+            var $form = $(this);
+            // validation code here
+            e.preventDefault();
+            var memberID = $('input[name=member_id]', $form).val(),
+                url = "/member/"+memberID;
+            console.log($('input[name=member_id]', $form).val());
+            console.log($form.serialize());
+            console.log(url);
+            $.ajax({
+                method: "PATCH",
+                url: url,
+                data: $form.serialize()
+            }).done(function( rs ) {
+                console.log(rs);
+            });
+        });
+        /*]]>*/
+    </script>
+</th:block>

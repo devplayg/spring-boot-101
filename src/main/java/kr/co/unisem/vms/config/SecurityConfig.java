@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         log.debug("### Security configure");
+        http.csrf().disable().cors();
 
 //        CharacterEncodingFilter filter = new CharacterEncodingFilter();
 //        http

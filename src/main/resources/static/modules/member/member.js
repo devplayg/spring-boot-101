@@ -9,10 +9,10 @@ $(function() {
 
 
     $('.btn-refresh').click(function(e) {
-        update();
+        updateList();
     });
 
-    function update() {
+    function updateList() {
         var url = '/members';
         url += '?'+$.param(filter, true);
         console.log(url);
