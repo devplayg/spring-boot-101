@@ -13,22 +13,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import javax.persistence.RollbackException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("member")
 @Slf4j
 public class MemberController {
-
-    @PersistenceContext
-    private EntityManager em;
 
     @Autowired
     private MemberRepository memberRepository;
@@ -56,85 +55,140 @@ public class MemberController {
         return "member/edit";
     }
 
-    // 수정
-//    @PatchMapping("{memberID}")
-//    public ResponseEntity<DbResult> patch(@ModelAttribute("member") Member member, @PathVariable("memberID") long memberID) {
-//        log.info("memberID: {}", memberID);
-//        log.info("member: {}", member.toString());
-//
+
+//    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+//    public void updateMember(Member member, Member input) {
+//        member.setName(input.getName());
+//        member.setEmail(input.getEmail());
+//        member.setEnabled(input.isEnabled());
 //        memberRepository.save(member);
 //
-//        DbResult rs = new DbResult("", 0);
-//        return new ResponseEntity<>(rs, HttpStatus.OK);
+//        if (input.getRoleList().size() > 0) {
+//            this.updateMemberRole(member, input);
+//        }
 //    }
 
-    @PatchMapping("{memberID}")
-    public ResponseEntity<DbResult> updateMember(@ModelAttribute("member") Member input, @PathVariable("memberID") long memberID) {
-        log.info("input: {}", input.toString());
-//        Optional<Member> memberOpt = memberRepository.findById(memberID);
-//        if (memberOpt.isPresent()) {
-//            Member member = memberOpt.get();
-//            log.info("member: {}", member.toString());
-//            member.setName(input.getName());
-//            member.setEmail(input.getEmail());
-//            member.setEnabled(input.isEnabled());
-//            log.info("member: {}", member.toString());
-//            memberRepository.save(input);
-//            rs.setAffectedRows(1);
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void update(Member member, Member input) throws RollbackException {
+//        member.setName(input.getName());
+//        member.setEmail(input.getEmail());
+//        member.setEnabled(input.isEnabled());
+//        Member result = memberRepository.save(member);
+//        if (result == null) throw new RollbackException();
 //
-//        } else {
+//        memberRoleRepository.deleteAll(member.getRoleList());
+////        if (resultList== null) throw new RollbackException();
 //
+//        List<MemberRole> list = new ArrayList<>();
+//        for (MemberRole r : input.getRoleList()) {
+//            if (r.getRole() != null) {
+//                r.setMember(input);
+//                list.add(r);
+//            }
 //        }
+//
+//        if (list.size() > 0) {
+//            memberRoleRepository.saveAll(list);
+//        }
+    }
 
+//    @Transactional( rollbackOn = RollbackException.class)
+//    public void save(ExObj user, ExObj2 userDetails) throws RollBackException {
+//
+//        ExObj resUser = rollBackRepository.save(user);
+//        if(resUser == null) throw new RollBackException();
+//
+//        ExObj2 resUserDetails = rollBackRepository.save(userDetails);
+//        if(resUserDetails == null) throw new RollBackException();
+//    }
+//
+//    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.READ_COMMITTED)
+//    public void updateMemberRole(Member member, Member input) {
+//        log.info("### Delete");
+//        memberRoleRepository.deleteAll(member.getRoleList());
+//        log.info("member: {}", member);
+//        log.info("### end of Delete");
+//        List<MemberRole> list = new ArrayList<>();
+//        for (MemberRole r : input.getRoleList()) {
+//            if (r.getRole() != null) {
+//                r.setMember(input);
+//                list.add(r);
+//            }
+//        }
+//
+//        if (list.size() > 0) {
+//            memberRoleRepository.saveAll(list);
+//        }
+//    }
+
+
+//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @PatchMapping("{memberID}")
+    public ResponseEntity<?> patch(@ModelAttribute("member") Member input, @PathVariable("memberID") long memberID) {
+        log.info("input: {}", input.toString());
 
         Member member = memberRepository.findById(memberID)
-                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", memberID));
+                .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
         member.setName(input.getName());
         member.setEmail(input.getEmail());
         member.setEnabled(input.isEnabled());
+//        member.setRoleList(null);
+
+//        memberRepository.deleteRoleListByMemberID(memberID);
+        memberRoleRepository.deleteInBatch(member.getRoleList());
+
+
+
+
+//        for (MemberRole r : member.getRoleList()) {
+//            member.getRoleList().remove(r);
+//        }
+        List<MemberRole> list = member.getRoleList().stream().filter(str->{
+            return false; // Delete !
+        }).collect(Collectors.toList());
+//        member.setRoleList(list);
+        for (MemberRole r : input.getRoleList()) {
+            if (r.getRole() != null) {
+                r.setMember(member);
+                member.getRoleList().add(r);
+            }
+        }
+        log.info("member: {}", member.toString());
         memberRepository.save(member);
 
 
-//        memberRoleRepository.deleteAll();
-        memberRoleRepository.deleteAll(member.getRoleList());
-//        memberRoleRepository.flush();
-//        memberRoleRepository.sa
-            List<MemberRole> list = new ArrayList<>();
-            for (MemberRole r : input.getRoleList()) {
-                if (r.getRole() != null) {
-                    r.setMember(member);
-                    list.add(r);
-                }
-            }
-            if (list.size() > 0) {
-                memberRoleRepository.saveAll(list);
-            }
+        // 사용자 정보 조회
+//        Member member = memberRepository.findById(memberID)
+//                .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
 
-//        memberRoleRepository.saveAll(input.getRoleList());
-
-
-        DbResult rs = new DbResult("", 0);
-//        Optional<Member> memberOpt = memberRepository.findById(memberID);
-//        if (memberOpt.isPresent()) {
-//            Member member = memberOpt.get();
-//        member.setName(input.getName());
-//        member.setEmail(input.getEmail());
-//            rs.setAffectedRows(1);
-//
-//        } else {
-//
+//        this.update(member, input);
+//        if (input.getRoleList().size() > 0) {
+//            this.updateMemberRole(member, input);
 //        }
 
-//        memberRepository.save(input);
+//        // 사용자 정보 업데이트
+//        member.setName(input.getName());
+//        member.setEmail(input.getEmail());
+//        member.setEnabled(input.isEnabled());
+//        memberRepository.save(member);
+//
+//
+//        // 사용자 권한정보 삭제
+//        memberRoleRepository.deleteAll(member.getRoleList());
+//        List<MemberRole> list = new ArrayList<>();
+//        for (MemberRole r : input.getRoleList()) {
+//            if (r.getRole() != null) {
+//                r.setMember(member);
+//                list.add(r);
+//            }
+////                throw  new NullPointerException();
+//        }
+//
+//        if (list.size() > 0) {
+//            memberRoleRepository.saveAll(list);
+//        }
 
-//        log.info("memberID: {}", memberID);
-//        log.info("input: {}", input.toString());
-//                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", memberID));
-
-
-//        Member changed = memberRepository.save(member);
-//        return changed;
-
+        DbResult rs = new DbResult("", 0);
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
 
@@ -166,7 +220,7 @@ public class MemberController {
 
     // 등록
     @PostMapping
-    public ResponseEntity<DbResult> post(@ModelAttribute Member member) {
+    public ResponseEntity<?> post(@ModelAttribute Member member) {
 
         // 사용자 권한, 상위객체 설정
         if (member.getRoleList() != null && !member.getRoleList().isEmpty()) {

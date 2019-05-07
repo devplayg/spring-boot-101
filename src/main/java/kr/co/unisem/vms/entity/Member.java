@@ -50,7 +50,7 @@ public class Member implements Serializable {
     @JoinColumn(name = "member_id")
     private MemberPassword password;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.REMOVE, mappedBy = "member")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "member")
     private List<MemberRole> roleList;
 
     @Column(columnDefinition = "TINYINT(3)")
