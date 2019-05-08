@@ -8,7 +8,7 @@
 </head>
 
 <div layout:fragment="content">
-    <form role="form" th:object="${member}">
+    <form id="form-edit" role="form" th:object="${member}">
         memberID: <input type="text" th:name="member_id" th:value="*{memberID}"/><Br>
         username: <input type="text" th:name="username" th:value="*{username}"/><Br>
         password: <input type="text" th:name="|password.password|" th:value="*{password.password}"><br>
@@ -28,6 +28,7 @@
             />
         </div>
         <button type="submit" class="btn btn-primary btn-update">update</button>
+        <button type="button" class="btn btn-danger btn-delete">delete</button>
     </form>
 </div>
 
@@ -41,9 +42,9 @@
             e.preventDefault();
             var memberID = $('input[name=member_id]', $form).val(),
                 url = "/member/"+memberID;
-            console.log($('input[name=member_id]', $form).val());
-            console.log($form.serialize());
-            console.log(url);
+            // console.log($('input[name=member_id]', $form).val());
+            // console.log($form.serialize());
+            // console.log(url);
             $.ajax({
                 method: "PATCH",
                 url: url,
@@ -52,6 +53,21 @@
                 console.log(rs);
             });
         });
+
+        $(".btn-delete").click(function() {
+            var id = $("#form-edit input[name=member_id]").val();
+            // console.log(id);
+            $.ajax({
+                method: "DELETE",
+                url: "/member/"+id,
+            }).done(function( rs ) {
+                console.log(rs);
+            });
+
+        });
+
+
+
         /*]]>*/
     </script>
 </th:block>

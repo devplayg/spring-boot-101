@@ -49,8 +49,8 @@ spring:
             max-active: 50
             max-idle: 20
             min-idle: 15
-#        hikari:
-#            auto-commit: false
+        hikari:
+            auto-commit: false
 
 server:
 #    error:

@@ -11,7 +11,6 @@ public class DbResult {
     private int total;
     private List rows;
     private String error;
-    private int affectedRows;
 
     public DbResult(String error) {
         this.error = error;

@@ -46,7 +46,13 @@ public class Member implements Serializable {
     @JoinColumn(name = "member_id")
     private MemberPassword password;
 
-    @OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "member")
+    @OneToMany(fetch = FetchType.EAGER,
+            orphanRemoval = true,
+            cascade = {
+                    CascadeType.PERSIST, // Child entities이 삭제 되도록 함
+                    CascadeType.MERGE // Child entities를 Insert할 때, Parent ID를 기록한 후 Insert 함
+            },
+            mappedBy = "member")
     private List<MemberRole> roleList;
 
     @Column(columnDefinition = "TINYINT(3)")
