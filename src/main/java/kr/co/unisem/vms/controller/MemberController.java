@@ -103,7 +103,7 @@ public class MemberController {
 //    @Transactional( rollbackOn = RollbackException.class)
 //    public void save(ExObj user, ExObj2 userDetails) throws RollBackException {
 //
-//        ExObj resUser = rollBackRepository.save(user);
+//        ExObj resUser =   rollBackRepository.save(user);
 //        if(resUser == null) throw new RollBackException();
 //
 //        ExObj2 resUserDetails = rollBackRepository.save(userDetails);
@@ -141,13 +141,13 @@ public class MemberController {
         member.setEnabled(input.isEnabled());
 //        member.setRoleList(null);
         List<MemberRole> list = member.getRoleList().stream().filter(role -> {
-            role.setMember(null);
+//            role.setMember(null);
             return false; // Delete !
         }).collect(Collectors.toList());
 
-        member.setRoleList(null);
-        log.info("member before flush: {}", member.toString());
-        memberRepository.saveAndFlush(member);
+//        member.setRoleList(null);
+//        log.info("member before flush: {}", member.toString());
+//        memberRepository.saveAndFlush(member);
 
         // 입력받은 권한을 설정
         for (MemberRole r : input.getRoleList()) {
