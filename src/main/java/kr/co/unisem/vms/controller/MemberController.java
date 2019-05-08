@@ -4,23 +4,20 @@ import kr.co.unisem.vms.entity.Member;
 import kr.co.unisem.vms.entity.MemberRole;
 import kr.co.unisem.vms.exception.ResourceNotFoundException;
 import kr.co.unisem.vms.filter.MemberFilter;
-import kr.co.unisem.vms.repository.MemberPasswordRepository;
 import kr.co.unisem.vms.repository.MemberRepository;
-import kr.co.unisem.vms.repository.MemberRoleRepository;
 import kr.co.unisem.vms.vo.DbResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.RollbackException;
-import java.util.ArrayList;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,20 +26,31 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MemberController {
 
+//    @PersistenceContext
+//    EntityManager em;
+
     @Autowired
     private MemberRepository memberRepository;
 
-    @Autowired
-    private MemberRoleRepository memberRoleRepository;
-
-    @Autowired
-    private MemberPasswordRepository memberPasswordRepository;
+//    @Autowired
+//    private MemberRoleRepository memberRoleRepository;
+//
+//    @Autowired
+//    private MemberPasswordRepository memberPasswordRepository;
 
     // 화면 (등록)
     @GetMapping("new")
     public String index(@ModelAttribute("member") Member member, Model model) {
         model.addAttribute("member", member);
         return "member/add";
+    }
+
+    // 조회
+    @GetMapping("{memberID}")
+    public ResponseEntity<Member> get(@PathVariable("memberID") long memberID) {
+        Member member = memberRepository.findById(memberID)
+                .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
+        return new ResponseEntity<Member>(member, HttpStatus.OK);
     }
 
     // 화면 (수정)
@@ -68,8 +76,8 @@ public class MemberController {
 //        }
 //    }
 
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void update(Member member, Member input) throws RollbackException {
+//    @Transactional(propagation = Propagation.REQUIRED)
+//    public void update(Member member, Member input) throws RollbackException {
 //        member.setName(input.getName());
 //        member.setEmail(input.getEmail());
 //        member.setEnabled(input.isEnabled());
@@ -90,7 +98,7 @@ public class MemberController {
 //        if (list.size() > 0) {
 //            memberRoleRepository.saveAll(list);
 //        }
-    }
+//    }
 
 //    @Transactional( rollbackOn = RollbackException.class)
 //    public void save(ExObj user, ExObj2 userDetails) throws RollBackException {
@@ -122,7 +130,6 @@ public class MemberController {
 //    }
 
 
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
     @PatchMapping("{memberID}")
     public ResponseEntity<?> patch(@ModelAttribute("member") Member input, @PathVariable("memberID") long memberID) {
         log.info("input: {}", input.toString());
@@ -133,64 +140,57 @@ public class MemberController {
         member.setEmail(input.getEmail());
         member.setEnabled(input.isEnabled());
 //        member.setRoleList(null);
-
-//        memberRepository.deleteRoleListByMemberID(memberID);
-        memberRoleRepository.deleteInBatch(member.getRoleList());
-
-
-
-
-//        for (MemberRole r : member.getRoleList()) {
-//            member.getRoleList().remove(r);
-//        }
-        List<MemberRole> list = member.getRoleList().stream().filter(str->{
+        List<MemberRole> list = member.getRoleList().stream().filter(role -> {
+            role.setMember(null);
             return false; // Delete !
         }).collect(Collectors.toList());
-//        member.setRoleList(list);
+
+        member.setRoleList(null);
+        log.info("member before flush: {}", member.toString());
+        memberRepository.saveAndFlush(member);
+
+        // 입력받은 권한을 설정
         for (MemberRole r : input.getRoleList()) {
             if (r.getRole() != null) {
                 r.setMember(member);
-                member.getRoleList().add(r);
+                list.add(r);
             }
         }
-        log.info("member: {}", member.toString());
+        member.setRoleList(list);
+        log.info("member before save: {}", member.toString());
         memberRepository.save(member);
-
-
-        // 사용자 정보 조회
+        DbResult rs = new DbResult("", 0);
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
+//    public ResponseEntity<?> patch(@ModelAttribute("member") Member input, @PathVariable("memberID") long memberID) {
+//
+//        log.info("input: {}", input.toString());
+//
 //        Member member = memberRepository.findById(memberID)
 //                .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
-
-//        this.update(member, input);
-//        if (input.getRoleList().size() > 0) {
-//            this.updateMemberRole(member, input);
-//        }
-
-//        // 사용자 정보 업데이트
 //        member.setName(input.getName());
 //        member.setEmail(input.getEmail());
 //        member.setEnabled(input.isEnabled());
-//        memberRepository.save(member);
+//        // 기존 권한설정 삭제
+//        List<MemberRole> list = member.getRoleList().stream().filter(role->{
+//            return false; // Delete !
+//        }).collect(Collectors.toList());
 //
-//
-//        // 사용자 권한정보 삭제
-//        memberRoleRepository.deleteAll(member.getRoleList());
-//        List<MemberRole> list = new ArrayList<>();
+//        // 입력받은 권한을 설정
 //        for (MemberRole r : input.getRoleList()) {
 //            if (r.getRole() != null) {
 //                r.setMember(member);
 //                list.add(r);
 //            }
-////                throw  new NullPointerException();
 //        }
+//        member.setRoleList(list);
+//        log.info("member: {}", member.toString());
+//        memberRepository.save(member);
 //
-//        if (list.size() > 0) {
-//            memberRoleRepository.saveAll(list);
-//        }
+//        DbResult rs = new DbResult("", 0);
+//        return new ResponseEntity<>(rs, HttpStatus.OK);
+//    }
 
-        DbResult rs = new DbResult("", 0);
-        return new ResponseEntity<>(rs, HttpStatus.OK);
-    }
 
     // 조회 - 목록
     @GetMapping("members")
@@ -198,25 +198,6 @@ public class MemberController {
         List<Member> list = memberRepository.findAll();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-
-    //
-//    @GetMapping("/notes/{id}")
-//    public Note getNoteById(@PathVariable(value = "id") Long noteId) {
-//        return noteRepository.findById(noteId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Note", "id", noteId));
-//    }
-
-
-    // 조회 - 단일
-//    @GetMapping("/member/{id}")
-//    public ResponseEntity<DbResult> get(@ModelAttribute("filter") MemberFilter filter) {
-//        Optional<Article> article = memberRepository.findById(articleID);
-//        if (article.isPresent()) {
-//            return ResponseEntity.ok(new DbResult("", Arrays.asList(article.get())));
-//        } else {
-//            return ResponseEntity.ok(new DbResult("", null));
-//        }
-//    }
 
     // 등록
     @PostMapping
@@ -234,6 +215,7 @@ public class MemberController {
 
         DbResult rs = new DbResult("", 0);
         try {
+            log.info("member: {}", member.toString());
             Member result = memberRepository.save(member);
             rs.setTotal(1);
 

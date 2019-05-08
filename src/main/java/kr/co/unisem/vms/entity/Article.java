@@ -12,23 +12,23 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name="articles")
+@Table(name = "articles")
 public class Article implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="article_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "article_id")
     @JsonProperty("article_id")
     private long articleId;
 
-    @Column(name="title")
+    @Column(name = "title")
     @NotBlank(message = "username can't empty!")
     private String title;
 
-    @Column(name="category")
+    @Column(name = "category")
     private Integer category;
 
-    @Column(name="date")
+    @Column(name = "date")
     private LocalDateTime date;
 }

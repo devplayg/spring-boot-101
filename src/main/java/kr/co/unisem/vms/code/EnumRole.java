@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 
 public class EnumRole {
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private EnumRole.Role role;
 
     public enum Role implements EnumModel {

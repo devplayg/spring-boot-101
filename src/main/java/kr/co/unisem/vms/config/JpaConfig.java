@@ -1,7 +1,7 @@
 package kr.co.unisem.vms.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.Getter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -12,6 +12,7 @@ import javax.persistence.PersistenceContext;
 @Configuration
 @EnableTransactionManagement
 public class JpaConfig {
+    @Getter
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -20,3 +21,4 @@ public class JpaConfig {
         return new JPAQueryFactory(entityManager);
     }
 }
+

@@ -51,8 +51,6 @@ spring:
             min-idle: 15
         hikari:
             auto-commit: false
-#        hikari:
-#            auto-commit: false
 
 server:
 #    error:

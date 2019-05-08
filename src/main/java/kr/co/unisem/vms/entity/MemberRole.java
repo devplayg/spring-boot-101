@@ -23,7 +23,7 @@ public class MemberRole implements Serializable {
     @Column(name = "role_id")
     private long roleID;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH})
     @JoinColumn(name = "member_id")
     private Member member;
 

@@ -1,10 +1,7 @@
 package kr.co.unisem.vms.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import javassist.runtime.Inner;
-import kr.co.unisem.vms.code.EnumOrg;
 import kr.co.unisem.vms.code.EnumRole;
-import kr.co.unisem.vms.vo.EnumValue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,7 +21,6 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Slf4j
-// @JsonIgnoreProperties(value = {"created", "updated"},
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -50,7 +46,7 @@ public class Member implements Serializable {
     @JoinColumn(name = "member_id")
     private MemberPassword password;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "member")
+    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, mappedBy = "member")
     private List<MemberRole> roleList;
 
     @Column(columnDefinition = "TINYINT(3)")
