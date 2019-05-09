@@ -1,5 +1,6 @@
 package kr.co.unisem.vms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -28,10 +29,11 @@ public class MemberPassword implements Serializable {
     private Member member;
 
     @Column
+    @JsonIgnore
     private String password;
 
     @Column
-    private String salt = "";
+    private String salt;
 
     @Column
     @CreationTimestamp

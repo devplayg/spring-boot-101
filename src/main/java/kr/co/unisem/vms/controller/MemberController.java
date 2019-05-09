@@ -1,5 +1,7 @@
 package kr.co.unisem.vms.controller;
 
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.unisem.vms.entity.Member;
 import kr.co.unisem.vms.entity.MemberRole;
 import kr.co.unisem.vms.exception.ResourceNotFoundException;
@@ -28,9 +30,31 @@ public class MemberController {
     @PersistenceContext
     private EntityManager em;
 
-
     @Autowired
     private MemberRepository memberRepository;
+
+    // 페이지 디스플레이
+    @GetMapping
+    public String index() {
+        return "member/member";
+    }
+
+    // 조회
+//    @GetMapping(value = "/members")
+//    public ResponseEntity<?> getList() {
+//        JPAQuery query = new JPAQuery(em);
+
+//        QMember m = QMember.member;
+
+        // https://joont92.github.io/jpa/QueryDSL/
+//        JPAQueryFactory
+//        JPAFactoryQuery query = new JPAQueryFactory(em);
+//        QMember m = QMember.member;
+//        List<Member> list = memberRepository.findAll();
+//        return new ResponseEntity<>(list, HttpStatus.OK);
+
+//    }
+
 
     // 화면 (등록)
     @GetMapping("new")
@@ -52,7 +76,7 @@ public class MemberController {
     public String index(@PathVariable("id") long memberID, Model model) {
         Member member = memberRepository.findById(memberID)
                 .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
-        log.info("member: {}", member.toString());
+//        log.info("member: {}", member.toString());
         model.addAttribute("member", member);
         return "member/edit";
     }
@@ -78,39 +102,38 @@ public class MemberController {
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
 
-    @PatchMapping("patchTest/{id}")
-    @Transactional
-    public ResponseEntity<?> patchTest(@ModelAttribute("member") Member input, @PathVariable("id") long memberID) {
-                Member member = memberRepository.findById(memberID)
-                .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
-
-//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
-//        EntityManager em = emf.createEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        try {
-        member.setName(input.getName());
-        member.setEmail(input.getEmail());
-        member.setEnabled(input.isEnabled());
-        member.setRoleList(new ArrayList<>());
-            em.persist(member);
-            tx.commit();
-        } catch (Exception e) {
-            tx.rollback();
-        } finally {
-            em.close();
-        }
-        DbResult rs = new DbResult("", 0);
-        return new ResponseEntity<>(rs, HttpStatus.OK);
-    }
+//    @PatchMapping("patchTest/{id}")
+//    public ResponseEntity<?> patchTest(@ModelAttribute("member") Member input, @PathVariable("id") long memberID) {
+//                Member member = memberRepository.findById(memberID)
+//                .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
+//
+////        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+////        EntityManager em = emf.createEntityManager();
+//        EntityTransaction tx = em.getTransaction();
+//        tx.begin();
+//        try {
+//        member.setName(input.getName());
+//        member.setEmail(input.getEmail());
+//        member.setEnabled(input.isEnabled());
+//        member.setRoleList(new ArrayList<>());
+//            em.persist(member);
+//            tx.commit();
+//        } catch (Exception e) {
+//            tx.rollback();
+//        } finally {
+//            em.close();
+//        }
+//        DbResult rs = new DbResult("", 0);
+//        return new ResponseEntity<>(rs, HttpStatus.OK);
+//    }
 
 
     // 조회 - 목록
-    @GetMapping("members")
-    public ResponseEntity<List<Member>> list(@ModelAttribute("filter") MemberFilter filter) {
-        List<Member> list = memberRepository.findAll();
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
+//    @GetMapping("members")
+//    public ResponseEntity<List<Member>> list(@ModelAttribute("filter") MemberFilter filter) {
+//        List<Member> list = memberRepository.findAll();
+//        return new ResponseEntity<>(list, HttpStatus.OK);
+//    }
 
     // 등록
     @PostMapping
@@ -128,7 +151,7 @@ public class MemberController {
 
         DbResult rs = new DbResult("", 0);
         try {
-            log.info("member: {}", member.toString());
+//            log.info("member: {}", member.toString());
             Member result = memberRepository.save(member);
             rs.setTotal(1);
 
