@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,11 @@ import java.util.List;
 @RequestMapping("member")
 @Slf4j
 public class MemberController {
+
+
+    @PersistenceContext
+    private EntityManager em;
+
 
     @Autowired
     private MemberRepository memberRepository;
@@ -33,8 +40,8 @@ public class MemberController {
     }
 
     // 조회
-    @GetMapping("{memberID}")
-    public ResponseEntity<Member> get(@PathVariable("memberID") long memberID) {
+    @GetMapping("{id}")
+    public ResponseEntity<Member> get(@PathVariable("id") long memberID) {
         Member member = memberRepository.findById(memberID)
                 .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
         return new ResponseEntity<Member>(member, HttpStatus.OK);
@@ -71,6 +78,33 @@ public class MemberController {
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
 
+    @PatchMapping("patchTest/{id}")
+    @Transactional
+    public ResponseEntity<?> patchTest(@ModelAttribute("member") Member input, @PathVariable("id") long memberID) {
+                Member member = memberRepository.findById(memberID)
+                .orElseThrow(() -> new ResourceNotFoundException("member", "id", memberID));
+
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
+//        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        try {
+        member.setName(input.getName());
+        member.setEmail(input.getEmail());
+        member.setEnabled(input.isEnabled());
+        member.setRoleList(new ArrayList<>());
+            em.persist(member);
+            tx.commit();
+        } catch (Exception e) {
+            tx.rollback();
+        } finally {
+            em.close();
+        }
+        DbResult rs = new DbResult("", 0);
+        return new ResponseEntity<>(rs, HttpStatus.OK);
+    }
+
+
     // 조회 - 목록
     @GetMapping("members")
     public ResponseEntity<List<Member>> list(@ModelAttribute("filter") MemberFilter filter) {
@@ -106,6 +140,8 @@ public class MemberController {
 
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
+
+
 
     // 삭제
     @DeleteMapping("{id}")

@@ -41,7 +41,9 @@
             // validation code here
             e.preventDefault();
             var memberID = $('input[name=member_id]', $form).val(),
+                // url = "/member/patchTest/"+memberID;
                 url = "/member/"+memberID;
+
             // console.log($('input[name=member_id]', $form).val());
             // console.log($form.serialize());
             // console.log(url);

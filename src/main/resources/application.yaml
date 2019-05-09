@@ -12,7 +12,6 @@ spring:
         suffix: .html
         encoding: utf-8
         cache: false
-
     devtools:
         livereload:
             enabled: true
