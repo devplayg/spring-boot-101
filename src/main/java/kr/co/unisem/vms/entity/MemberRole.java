@@ -1,5 +1,9 @@
 package kr.co.unisem.vms.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import kr.co.unisem.vms.code.EnumRole;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -15,6 +19,9 @@ import java.time.LocalDateTime;
 @ToString(exclude = "member")  // 순환참조 차단
 @EqualsAndHashCode(of = {"role"})
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "roleID")
 public class MemberRole implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -25,6 +32,7 @@ public class MemberRole implements Serializable {
 
     @ManyToOne(cascade = {CascadeType.DETACH})
     @JoinColumn(name = "member_id")
+    @JsonManagedReference
     private Member member;
 
     @Column

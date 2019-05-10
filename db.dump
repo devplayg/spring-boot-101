@@ -13,19 +13,19 @@
 
 
 -- vms 데이터베이스 구조 내보내기
-CREATE DATABASE IF NOT EXISTS `vms` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE IF NOT EXISTS `vms` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `vms`;
 
 -- 테이블 vms.articles 구조 내보내기
 CREATE TABLE IF NOT EXISTS `articles` (
-  `article_id` int(5) NOT NULL AUTO_INCREMENT,
+  `article_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `title` varchar(200) NOT NULL,
   `category` int(11) NOT NULL,
   `date` datetime NOT NULL,
   PRIMARY KEY (`article_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 vms.articles:~11 rows (대략적) 내보내기
+-- 테이블 데이터 vms.articles:~128 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `articles` DISABLE KEYS */;
 INSERT INTO `articles` (`article_id`, `title`, `category`, `date`) VALUES
 	(1, 'Hello Unisem', 1, '2019-04-15 05:02:55'),
@@ -160,7 +160,7 @@ INSERT INTO `articles` (`article_id`, `title`, `category`, `date`) VALUES
 
 -- 테이블 vms.mbr_allowed_ip 구조 내보내기
 CREATE TABLE IF NOT EXISTS `mbr_allowed_ip` (
-  `member_id` int(11) NOT NULL,
+  `member_id` bigint(20) NOT NULL,
   `ip` varchar(16) NOT NULL,
   `cidr` int(11) NOT NULL,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
@@ -170,13 +170,11 @@ CREATE TABLE IF NOT EXISTS `mbr_allowed_ip` (
 
 -- 테이블 데이터 vms.mbr_allowed_ip:~0 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `mbr_allowed_ip` DISABLE KEYS */;
-INSERT INTO `mbr_allowed_ip` (`member_id`, `ip`, `cidr`, `created`) VALUES
-	(1, '0.0.0.0', 0, '2019-04-24 09:38:32');
 /*!40000 ALTER TABLE `mbr_allowed_ip` ENABLE KEYS */;
 
 -- 테이블 vms.mbr_member 구조 내보내기
 CREATE TABLE IF NOT EXISTS `mbr_member` (
-  `member_id` int(11) NOT NULL AUTO_INCREMENT,
+  `member_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `org_id` varchar(16) NOT NULL DEFAULT '',
   `username` varchar(32) NOT NULL,
   `email` varchar(256) NOT NULL,
@@ -193,18 +191,46 @@ CREATE TABLE IF NOT EXISTS `mbr_member` (
   `updated` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`member_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 vms.mbr_member:~0 rows (대략적) 내보내기
+-- 테이블 데이터 vms.mbr_member:~24 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `mbr_member` DISABLE KEYS */;
 INSERT INTO `mbr_member` (`member_id`, `org_id`, `username`, `email`, `name`, `login_count`, `enabled`, `timezone`, `failed_login_count`, `last_success_login`, `last_failed_login`, `last_read_message`, `session_id`, `created`, `updated`) VALUES
-	(1, '0', 'unisem', 'wsan@unisem.co.kr', '안원석', 0, 0, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-24 09:34:58', '2019-04-24 09:34:58');
+	(1, '0', 'unisem', 'wsan@unisem.co.kr', '안원석', 0, 0, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-24 09:34:58', '2019-04-24 09:34:58'),
+	(40, '', 'wsahn2', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 01:38:33', '2019-04-30 01:38:33'),
+	(41, '', 'wsahn3', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 01:39:13', '2019-04-30 01:39:13'),
+	(42, '', 'wsahn4', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 01:41:54', '2019-04-30 01:41:54'),
+	(45, '', 'wsahn5', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 01:52:16', '2019-04-30 01:52:16'),
+	(46, '', 'wsahn6', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 01:54:03', '2019-04-30 01:54:03'),
+	(47, '', 'wsahn7', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 02:14:01', '2019-04-30 02:14:01'),
+	(50, '', 'wsahn8', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 02:16:59', '2019-04-30 02:16:59'),
+	(52, '', 'wsahn9', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 02:18:26', '2019-04-30 02:18:26'),
+	(53, '', 'wsahn10', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 02:22:35', '2019-04-30 02:22:35'),
+	(54, '', 'wsahn12', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 02:25:12', '2019-04-30 02:25:12'),
+	(57, '', 'wsahn13', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 02:49:59', '2019-04-30 02:49:59'),
+	(58, '', 'wsahn14', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 04:17:29', '2019-04-30 04:17:29'),
+	(59, '', 'wsahn15', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 04:29:03', '2019-04-30 04:29:03'),
+	(60, '', 'wsahn16', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 04:30:17', '2019-04-30 04:30:17'),
+	(62, '', 'wsahn11', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 04:38:31', '2019-04-30 04:38:31'),
+	(63, '', 'wsahn17', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 04:39:12', '2019-04-30 04:39:12'),
+	(64, '', 'wsahn18', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 04:40:36', '2019-04-30 04:40:36'),
+	(65, '', 'wsahn19', 'wsan@wsan.co.kr', 'Won-Seok', 0, 0, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 04:42:27', '2019-04-30 04:42:27'),
+	(75, '', 'wsahn20', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-04-30 07:52:53', '2019-04-30 07:52:53'),
+	(77, '', 'wsahn21', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-07 04:41:57', '2019-05-07 04:41:57'),
+	(78, '', 'wsahn22', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-07 06:22:55', '2019-05-07 06:22:55'),
+	(80, '', 'wsahn23', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-08 02:41:34', '2019-05-08 02:41:34'),
+	(82, '', 'wsahn24', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-08 06:41:40', '2019-05-08 06:41:40'),
+	(83, '', 'wsahn25', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-08 06:45:51', '2019-05-08 06:45:51'),
+	(84, '', 'wsahn252', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-08 06:46:23', '2019-05-08 06:46:23'),
+	(85, '', 'wsahn26', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-08 06:46:52', '2019-05-08 06:46:52'),
+	(86, '', 'wsahn27', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-08 06:48:30', '2019-05-08 06:48:30'),
+	(87, '', 'wsahn33', 'wsan@wsan.co.kr', 'Won-Seok', 0, 1, '', 0, '1970-01-01 00:00:00', '1970-01-01 00:00:00', 0, '', '2019-05-09 10:53:53', '2019-05-09 10:53:53');
 /*!40000 ALTER TABLE `mbr_member` ENABLE KEYS */;
 
 -- 테이블 vms.mbr_password 구조 내보내기
 CREATE TABLE IF NOT EXISTS `mbr_password` (
-  `password_id` int(11) NOT NULL AUTO_INCREMENT,
-  `member_id` int(11) NOT NULL,
+  `password_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `member_id` bigint(20) NOT NULL,
   `password` varchar(64) NOT NULL,
   `salt` varchar(32) NOT NULL,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
@@ -212,30 +238,108 @@ CREATE TABLE IF NOT EXISTS `mbr_password` (
   PRIMARY KEY (`password_id`),
   KEY `fk_mbr_password_member_id` (`member_id`),
   CONSTRAINT `fk_mbr_password_member_id` FOREIGN KEY (`member_id`) REFERENCES `mbr_member` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
 
--- 테이블 데이터 vms.mbr_password:~1 rows (대략적) 내보내기
+-- 테이블 데이터 vms.mbr_password:~24 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `mbr_password` DISABLE KEYS */;
 INSERT INTO `mbr_password` (`password_id`, `member_id`, `password`, `salt`, `created`, `updated`) VALUES
-	(1, 1, '$2a$10$N0eqNiuikWCy9ETQ1rdau.XEELcyEO7kukkfoiNISk/9F7gw6eB0W', '1', '2019-04-28 02:27:03', '2019-04-27 17:27:25');
+	(1, 1, '$2a$10$N0eqNiuikWCy9ETQ1rdau.XEELcyEO7kukkfoiNISk/9F7gw6eB0W', '1', '2019-04-28 02:27:03', '2019-04-27 17:27:25'),
+	(7, 40, 'my_private_password', '', '2019-04-30 01:38:33', '2019-04-30 01:38:33'),
+	(8, 41, 'my_private_password', '', '2019-04-30 01:39:13', '2019-04-30 01:39:13'),
+	(9, 42, 'my_private_password', '', '2019-04-30 01:41:54', '2019-04-30 01:41:54'),
+	(10, 45, 'my_private_password', '', '2019-04-30 01:52:16', '2019-04-30 01:52:16'),
+	(11, 46, 'my_private_password', '', '2019-04-30 01:54:03', '2019-04-30 01:54:03'),
+	(12, 47, 'my_private_password', '', '2019-04-30 02:14:01', '2019-04-30 02:14:01'),
+	(13, 50, 'my_private_password', '', '2019-04-30 02:16:59', '2019-04-30 02:16:59'),
+	(14, 52, 'my_private_password', '', '2019-04-30 02:18:26', '2019-04-30 02:18:26'),
+	(15, 53, 'my_private_password', '', '2019-04-30 02:22:35', '2019-04-30 02:22:35'),
+	(16, 54, 'my_private_password', '', '2019-04-30 02:25:12', '2019-04-30 02:25:12'),
+	(17, 57, 'my_private_password', '', '2019-04-30 02:49:59', '2019-04-30 02:49:59'),
+	(18, 58, 'my_private_password', '', '2019-04-30 04:17:29', '2019-04-30 04:17:29'),
+	(19, 59, 'my_private_password', '', '2019-04-30 04:29:03', '2019-04-30 04:29:03'),
+	(20, 60, 'my_private_password', '', '2019-04-30 04:30:17', '2019-04-30 04:30:17'),
+	(21, 62, 'my_private_password', '', '2019-04-30 04:38:31', '2019-04-30 04:38:31'),
+	(22, 63, 'my_private_password', '', '2019-04-30 04:39:12', '2019-04-30 04:39:12'),
+	(23, 64, 'my_private_password', '', '2019-04-30 04:40:36', '2019-04-30 04:40:36'),
+	(24, 65, 'my_private_password', '', '2019-04-30 04:42:27', '2019-04-30 04:42:27'),
+	(25, 75, 'my_private_password', '', '2019-04-30 07:52:53', '2019-04-30 07:52:53'),
+	(26, 77, 'my_private_password', '', '2019-05-07 04:41:57', '2019-05-07 04:41:57'),
+	(27, 78, 'my_private_password', '', '2019-05-07 06:22:55', '2019-05-07 06:22:55'),
+	(28, 80, 'my_private_password', '', '2019-05-08 02:41:34', '2019-05-08 02:41:34'),
+	(29, 82, 'my_private_password', '', '2019-05-08 06:41:40', '2019-05-08 06:41:40'),
+	(30, 83, 'my_private_password', '', '2019-05-08 06:45:51', '2019-05-08 06:45:51'),
+	(31, 84, 'my_private_password', '', '2019-05-08 06:46:23', '2019-05-08 06:46:23'),
+	(32, 85, 'my_private_password', '', '2019-05-08 06:46:52', '2019-05-08 06:46:52'),
+	(33, 86, 'my_private_password', '', '2019-05-08 06:48:30', '2019-05-08 06:48:30'),
+	(34, 87, 'my_private_password', '', '2019-05-09 10:53:53', '2019-05-09 10:53:53');
 /*!40000 ALTER TABLE `mbr_password` ENABLE KEYS */;
 
 -- 테이블 vms.mbr_role 구조 내보내기
 CREATE TABLE IF NOT EXISTS `mbr_role` (
-  `role_id` int(11) NOT NULL AUTO_INCREMENT,
-  `member_id` int(11) NOT NULL,
+  `role_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `member_id` bigint(20) NOT NULL,
   `role` varchar(32) NOT NULL,
   `created` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`role_id`),
-  UNIQUE KEY `member_id` (`member_id`,`role`),
+  KEY `fk_mbr_role_member_id` (`member_id`),
   CONSTRAINT `fk_mbr_role_member_id` FOREIGN KEY (`member_id`) REFERENCES `mbr_member` (`member_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='4.0.1506.30401';
+) ENGINE=InnoDB AUTO_INCREMENT=322 DEFAULT CHARSET=utf8 COMMENT='4.0.1506.30401';
 
--- 테이블 데이터 vms.mbr_role:~2 rows (대략적) 내보내기
+-- 테이블 데이터 vms.mbr_role:~54 rows (대략적) 내보내기
 /*!40000 ALTER TABLE `mbr_role` DISABLE KEYS */;
 INSERT INTO `mbr_role` (`role_id`, `member_id`, `role`, `created`) VALUES
-	(1, 1, 'ADMIN', '2019-04-24 09:38:41'),
-	(2, 1, 'SHERIFF', '2019-04-24 09:38:53');
+	(23, 41, 'Admin', '2019-04-30 01:39:13'),
+	(24, 41, 'Sheriff', '2019-04-30 01:39:13'),
+	(25, 42, 'Admin', '2019-04-30 01:41:54'),
+	(26, 42, 'Sheriff', '2019-04-30 01:41:54'),
+	(27, 45, 'Admin', '2019-04-30 01:52:16'),
+	(28, 45, 'Sheriff', '2019-04-30 01:52:16'),
+	(29, 46, 'Admin', '2019-04-30 01:54:03'),
+	(30, 46, 'Sheriff', '2019-04-30 01:54:03'),
+	(31, 47, 'Admin', '2019-04-30 02:14:01'),
+	(32, 47, 'Sheriff', '2019-04-30 02:14:01'),
+	(33, 47, 'User', '2019-04-30 02:14:01'),
+	(34, 50, 'Admin', '2019-04-30 02:16:59'),
+	(35, 50, 'Sheriff', '2019-04-30 02:16:59'),
+	(36, 50, 'User', '2019-04-30 02:16:59'),
+	(37, 52, 'Admin', '2019-04-30 02:18:26'),
+	(38, 52, 'Sheriff', '2019-04-30 02:18:26'),
+	(39, 52, 'User', '2019-04-30 02:18:26'),
+	(40, 53, 'Admin', '2019-04-30 02:22:35'),
+	(41, 53, 'Sheriff', '2019-04-30 02:22:35'),
+	(42, 53, 'User', '2019-04-30 02:22:35'),
+	(43, 54, 'Admin', '2019-04-30 02:25:12'),
+	(44, 54, 'Sheriff', '2019-04-30 02:25:12'),
+	(45, 54, 'User', '2019-04-30 02:25:12'),
+	(46, 57, 'Admin', '2019-04-30 02:49:59'),
+	(47, 57, 'Sheriff', '2019-04-30 02:49:59'),
+	(48, 57, 'User', '2019-04-30 02:49:59'),
+	(49, 58, 'Admin', '2019-04-30 04:17:29'),
+	(50, 58, 'Sheriff', '2019-04-30 04:17:29'),
+	(51, 58, 'User', '2019-04-30 04:17:29'),
+	(52, 59, 'Admin', '2019-04-30 04:29:03'),
+	(53, 59, 'Sheriff', '2019-04-30 04:29:03'),
+	(54, 59, 'User', '2019-04-30 04:29:03'),
+	(55, 60, 'Admin', '2019-04-30 04:30:17'),
+	(56, 60, 'Sheriff', '2019-04-30 04:30:17'),
+	(57, 60, 'User', '2019-04-30 04:30:17'),
+	(58, 62, 'Admin', '2019-04-30 04:38:31'),
+	(59, 62, 'Sheriff', '2019-04-30 04:38:31'),
+	(60, 62, 'User', '2019-04-30 04:38:31'),
+	(61, 63, 'Admin', '2019-04-30 04:39:12'),
+	(62, 63, 'Sheriff', '2019-04-30 04:39:12'),
+	(63, 63, 'User', '2019-04-30 04:39:12'),
+	(64, 64, 'Admin', '2019-04-30 04:40:36'),
+	(65, 64, 'Sheriff', '2019-04-30 04:40:36'),
+	(66, 64, 'User', '2019-04-30 04:40:36'),
+	(67, 65, 'Admin', '2019-04-30 04:42:27'),
+	(68, 65, 'Sheriff', '2019-04-30 04:42:27'),
+	(69, 65, 'User', '2019-04-30 04:42:27'),
+	(277, 86, 'Admin', '2019-05-08 06:48:30'),
+	(278, 86, 'Sheriff', '2019-05-08 06:48:30'),
+	(279, 86, 'User', '2019-05-08 06:48:30'),
+	(320, 40, 'Admin', '2019-05-10 01:59:50'),
+	(321, 40, 'User', '2019-05-10 01:59:50');
 /*!40000 ALTER TABLE `mbr_role` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

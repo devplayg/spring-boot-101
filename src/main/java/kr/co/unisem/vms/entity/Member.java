@@ -1,6 +1,6 @@
 package kr.co.unisem.vms.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.*;
 import kr.co.unisem.vms.code.EnumRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +21,9 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Slf4j
+//@JsonIdentityInfo(
+//        generator = ObjectIdGenerators.PropertyGenerator.class,
+//        property = "memberID")
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -42,7 +45,7 @@ public class Member implements Serializable {
     private String name;
 
     @JsonIgnore
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "member")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "member")
     @JoinColumn(name = "member_id")
     private MemberPassword password;
 
@@ -53,6 +56,8 @@ public class Member implements Serializable {
                     CascadeType.MERGE // Child entities를 Insert할 때, Parent ID를 기록한 후 Insert 함
             },
             mappedBy = "member")
+    @JsonBackReference
+    @JsonProperty("roleList")
     private List<MemberRole> roleList;
 
     @Column(columnDefinition = "TINYINT(3)")

@@ -1,37 +1,45 @@
 package kr.co.unisem.vms.controller;
 
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.unisem.vms.entity.Member;
 import kr.co.unisem.vms.entity.MemberRole;
 import kr.co.unisem.vms.exception.ResourceNotFoundException;
-import kr.co.unisem.vms.filter.MemberFilter;
 import kr.co.unisem.vms.repository.MemberRepository;
+import kr.co.unisem.vms.repository.MemberRepositorySupport;
 import kr.co.unisem.vms.vo.DbResult;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static kr.co.unisem.vms.entity.QMember.member;
+
 
 @Controller
 @RequestMapping("member")
 @Slf4j
+@RequiredArgsConstructor
 public class MemberController {
-
-
-    @PersistenceContext
-    private EntityManager em;
 
     @Autowired
     private MemberRepository memberRepository;
+
+    @Autowired
+    private MemberRepositorySupport memberRepositorySupport;
+
+//    private final JPAQueryFactory queryFactory;
+
+//    public AcademyRepositorySupport(JPAQueryFactory queryFactory) {
+//        super(Academy.class);
+//        this.queryFactory = queryFactory;
+//    }
 
     // 페이지 디스플레이
     @GetMapping
@@ -40,21 +48,11 @@ public class MemberController {
     }
 
     // 조회
-//    @GetMapping(value = "/members")
-//    public ResponseEntity<?> getList() {
-//        JPAQuery query = new JPAQuery(em);
-
-//        QMember m = QMember.member;
-
-        // https://joont92.github.io/jpa/QueryDSL/
-//        JPAQueryFactory
-//        JPAFactoryQuery query = new JPAQueryFactory(em);
-//        QMember m = QMember.member;
-//        List<Member> list = memberRepository.findAll();
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-
-//    }
-
+    @GetMapping("list")
+    public ResponseEntity<?> getList() {
+        List<Member> list = memberRepositorySupport.findByName("-4");
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
     // 화면 (등록)
     @GetMapping("new")

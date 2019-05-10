@@ -24,7 +24,7 @@ public class MemberPassword implements Serializable {
     @Column(name="password_id")
     private long passwordID;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(cascade = {CascadeType.DETACH})
     @JoinColumn(name = "member_id")
     private Member member;
 

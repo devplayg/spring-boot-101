@@ -33,7 +33,7 @@ server:
 # 개발모드 설정
 spring:
     jpa:
-        show-sql: true
+        show-sql: false
         hibernate:
             # 스키마 유효성 체크
             ddl-auto: validate
@@ -65,8 +65,8 @@ logging:
         org:
             mybatis: info
             hibernate:
-                SQL: info
-                type.descriptor.sql.BasicBinder: info
+                SQL: debug
+                type.descriptor.sql.BasicBinder: trace
 
 ---
 # 제품모드 설정

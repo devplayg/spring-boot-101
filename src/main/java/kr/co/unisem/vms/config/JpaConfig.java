@@ -1,38 +1,33 @@
 package kr.co.unisem.vms.config;
 
 
-import com.querydsl.core.Tuple;
-import com.querydsl.core.types.EntityPath;
-import com.querydsl.core.types.Expression;
-import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.jpa.JPQLQueryFactory;
-import com.querydsl.jpa.JPQLTemplates;
-import com.querydsl.jpa.impl.JPADeleteClause;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.querydsl.jpa.impl.JPAUpdateClause;
-import lombok.Getter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.annotation.Nullable;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.security.Provider;
 
 @Configuration
 //@EnableTransactionManagement
 public class JpaConfig {
-    @Getter
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager em;
 
     @Bean
-    public JPAQueryFactory JpaConfig() {
-        return new JPAQueryFactory(entityManager);
+    public JPAQueryFactory jpaQueryFactory() {
+        return new JPAQueryFactory(em);
     }
-}
 
+//    @Getter
+//    @PersistenceContext
+//    private EntityManager entityManager;
+//
+//    @Bean
+//    public JPAQueryFactory JpaConfig() {
+//        return new JPAQueryFactory(entityManager);
+//    }
+}
 
 
 //
