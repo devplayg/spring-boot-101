@@ -132,7 +132,6 @@ public class MemberController {
         if (member.getRoleList() != null && !member.getRoleList().isEmpty()) {
             for (MemberRole r : member.getRoleList()) {
                 r.setMember(member);
-//                r.setMemberID(member.getMemberID());
             }
         }
 

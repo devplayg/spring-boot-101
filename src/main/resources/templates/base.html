@@ -14,7 +14,7 @@
 <body class="container-fluid">
     <div>
         Logged in app: <b th:inline="text" class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-        <a href="/app-logout" th:href="@{/app-logout}">Logout</a>
+        <a href="/logout" th:href="@{/logout}">Logout</a>
         <hr>
     </div>
     <!--/* Contents */-->

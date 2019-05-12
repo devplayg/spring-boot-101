@@ -65,8 +65,8 @@ logging:
         org:
             mybatis: info
             hibernate:
-                SQL: debug
-                type.descriptor.sql.BasicBinder: trace
+                SQL: info
+                type.descriptor.sql.BasicBinder: info
 
 ---
 # 제품모드 설정
