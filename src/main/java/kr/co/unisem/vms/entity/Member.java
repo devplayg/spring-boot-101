@@ -21,16 +21,13 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 @Slf4j
-//@JsonIdentityInfo(
-//        generator = ObjectIdGenerators.PropertyGenerator.class,
-//        property = "memberID")
 public class Member implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private long memberID;
+    private long id;
 
     @Column(name = "username", unique = true)
     @NotBlank
@@ -44,11 +41,15 @@ public class Member implements Serializable {
     @NotBlank
     private String name;
 
+    @Column
     @JsonIgnore
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "member")
-    @JoinColumn(name = "member_id")
-    private MemberPassword password;
+    private String password;
 
+    @Column(name = "password_salt")
+    @JsonIgnore
+    private String passwordSalt = "";
+
+    // 사용자 권한
     @OneToMany(fetch = FetchType.EAGER,
             orphanRemoval = true,
             cascade = {
@@ -56,18 +57,13 @@ public class Member implements Serializable {
                     CascadeType.MERGE // Child entities를 Insert할 때, Parent ID를 기록한 후 Insert 함
             },
             mappedBy = "member")
-    @JsonBackReference
-    @JsonProperty("roleList")
     private List<MemberRole> roleList;
 
     @Column(columnDefinition = "TINYINT(3)")
     private boolean enabled;
 
-    public Member(int memberID) {
-        this.memberID = memberID;
-    }
-
-    @Transient
+    // 템플릿 엔진에서 사용하기 위한 설정
+    @JsonIgnore
     public List<EnumRole.Role> getRoleEnumList() {
         List<EnumRole.Role> list = new ArrayList<>();
         for (MemberRole role : roleList) {

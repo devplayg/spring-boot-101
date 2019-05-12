@@ -9,9 +9,9 @@
 
 <div layout:fragment="content">
     <form id="form-edit" role="form" th:object="${member}">
-        memberID: <input type="text" th:name="member_id" th:value="*{memberID}"/><Br>
+        memberID: <input type="text" th:name="member_id" th:value="*{id}"/><Br>
         username: <input type="text" th:name="username" th:value="*{username}"/><Br>
-        password: <input type="text" th:name="|password.password|" th:value="*{password.password}"><br>
+        password: <input type="text" th:name="password" th:value="*{password}"><br>
         name: <input type="text" th:name="name" th:value="*{name}" /><Br>
         email: <input type="text" th:name="email" th:value="*{email}" /><Br>
         enabled: <input type="checkbox" th:name="enabled" th:checked="*{enabled}" /> <Br>

@@ -1,6 +1,5 @@
 package kr.co.unisem.vms.controller;
 
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.unisem.vms.entity.Member;
 import kr.co.unisem.vms.entity.MemberRole;
 import kr.co.unisem.vms.exception.ResourceNotFoundException;
@@ -19,9 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static kr.co.unisem.vms.entity.QMember.member;
-
-
 @Controller
 @RequestMapping("member")
 @Slf4j
@@ -34,23 +30,18 @@ public class MemberController {
     @Autowired
     private MemberRepositorySupport memberRepositorySupport;
 
-//    private final JPAQueryFactory queryFactory;
-
-//    public AcademyRepositorySupport(JPAQueryFactory queryFactory) {
-//        super(Academy.class);
-//        this.queryFactory = queryFactory;
-//    }
-
     // 페이지 디스플레이
     @GetMapping
-    public String index() {
+    public String get() {
         return "member/member";
     }
 
-    // 조회
-    @GetMapping("list")
-    public ResponseEntity<?> getList() {
-        List<Member> list = memberRepositorySupport.findByName("-4");
+    // 사용자 목록 조회
+    @GetMapping(value = "list")
+    public ResponseEntity<?> list() {
+        List<Member> list = memberRepositorySupport.find("-4");
+        log.info("member: {}", list.toString());
+
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -141,11 +132,9 @@ public class MemberController {
         if (member.getRoleList() != null && !member.getRoleList().isEmpty()) {
             for (MemberRole r : member.getRoleList()) {
                 r.setMember(member);
+//                r.setMemberID(member.getMemberID());
             }
         }
-
-        // 사용자 비밀번호 상위객체 설정
-        member.getPassword().setMember(member);
 
         DbResult rs = new DbResult("", 0);
         try {
@@ -161,7 +150,6 @@ public class MemberController {
 
         return new ResponseEntity<>(rs, HttpStatus.OK);
     }
-
 
 
     // 삭제

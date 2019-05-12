@@ -2,17 +2,12 @@ package kr.co.unisem.vms.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import kr.co.unisem.vms.entity.Member;
+import kr.co.unisem.vms.entity.QMember;
+import kr.co.unisem.vms.entity.QMemberRole;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-import static kr.co.unisem.vms.entity.QMember.member;
-
-
-//public interface MemberRepositorySupport {
-//    List<Member> findByNameLike(String name);
-//}
 
 @Repository
 public class MemberRepositorySupport extends QuerydslRepositorySupport {
@@ -23,11 +18,14 @@ public class MemberRepositorySupport extends QuerydslRepositorySupport {
         this.queryFactory = queryFactory;
     }
 
-    public List<Member> findByName(String name) {
+    public List<Member> find(String name) {
+        QMember member = QMember.member;
+        QMemberRole roleList = QMemberRole.memberRole;
         return queryFactory
                 .selectFrom(member)
-                .leftJoin(member.roleList, r)
-                .where(member.name.like("%"+name+"%"))
+                .distinct()
+                .leftJoin(member.roleList, roleList).fetchJoin()
+                .where(member.name.like("%" + name + "%"))
                 .fetch();
     }
 

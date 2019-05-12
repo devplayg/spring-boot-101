@@ -21,14 +21,14 @@ import java.util.List;
 public class MemberService implements UserDetailsService {
 
     @Autowired
-    private MemberRepository memberRepo;
+    private MemberRepository memberRepository;
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        memberRepo.findByUsername()
-        Member member = memberRepo.findByUsername(username);
+//        memberRepository.findOne()
+        Member member = memberRepository.findByUsername(username);
 //        GrantedAuthority authority = new SimpleGrantedAuthority(member.getRole());
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ADMIN", "USER");
-        UserDetails userDetails = (UserDetails) new User(member.getUsername(), member.getPassword().getPassword(), authorities);
+        UserDetails userDetails = (UserDetails) new User(member.getUsername(), member.getPassword(), authorities);
 
         return userDetails;
     }
