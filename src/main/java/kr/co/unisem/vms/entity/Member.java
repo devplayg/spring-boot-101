@@ -43,10 +43,12 @@ public class Member implements Serializable {
 
     @Column
     @JsonIgnore
+    @ToString.Exclude
     private String password;
 
     @Column(name = "password_salt")
     @JsonIgnore
+    @ToString.Exclude
     private String passwordSalt = "";
 
     // 사용자 권한

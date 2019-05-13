@@ -12,9 +12,9 @@ public class EnumRole {
     private EnumRole.Role role;
 
     public enum Role implements EnumModel {
-        Admin("administrator"),
-        Sheriff("sheriff"),
-        User("normal user");
+        ADMIN("Administrator"),
+        SHERIFF("Sheriff"),
+        USER("Normal user");
 
         private String value;
 

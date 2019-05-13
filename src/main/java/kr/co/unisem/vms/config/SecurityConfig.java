@@ -1,7 +1,6 @@
 package kr.co.unisem.vms.config;
 
-import kr.co.unisem.vms.service.MemberService;
-import lombok.extern.slf4j.Slf4j;
+import kr.co.unisem.vms.service.MemberDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,25 +12,27 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.csrf.CsrfFilter;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-// 설정
 @Configuration
-
-// 웹 보안 활성화
 @EnableWebSecurity
-
-// 어노테이션을 사용하여 어노테이션 기반 보안을 적용
-@EnableGlobalMethodSecurity(securedEnabled=true)
-
-// 로깅
-@Slf4j
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true
+)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private MemberService memberDetailsService;
+    private MemberDetailsService memberDetailsService;
+
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        auth.userDetailsService(memberDetailsService).passwordEncoder(encoder);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        log.debug("### Security configure");
+//        log.debug("### Security configure");
         http.csrf().disable().cors();
 
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
@@ -51,6 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                     // 인증을 요구
                     .authenticated()
+
                 .and()
 
             // 로그인
@@ -93,13 +95,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable();
+//            .build();
+
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        auth.userDetailsService(memberDetailsService).passwordEncoder(encoder);
-    }
+
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+//
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .userDetailsService(memberDetailsService)
+//                .passwordEncoder(passwordEncoder());
+//    }
+
 
 //    @Bean
 //    public CommonsRequestLoggingFilter requestLoggingFilter() {

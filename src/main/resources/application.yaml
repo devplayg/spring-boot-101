@@ -4,7 +4,6 @@ spring:
     profiles:
         # 제품 운영 모드 (dev|prod)
         active: dev
-
     # 다국어
     # 템플릿 엔진
     thymeleaf:
@@ -24,7 +23,7 @@ mybatis:
     configuration:
         map-underscore-to-camel-case: true
 appconf:
-    homeuri: /app/articles
+    homeuri: /member
 
 server:
     error:

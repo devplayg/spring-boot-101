@@ -17,7 +17,7 @@ public class RequestConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(interceptor)
-                .addPathPatterns("/member/**", "/login/**");
+                .addPathPatterns("/member/**", "/sec/**", "/login/**");
 //                .excludePathPatterns("/plugins/**", "/js/**", "/error/**");
     }
 }
