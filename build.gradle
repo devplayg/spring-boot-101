@@ -20,7 +20,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: "com.ewerk.gradle.plugins.querydsl"
 
-group = 'kr.co.unisem'
+group = 'com.devplayg'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
@@ -80,69 +80,3 @@ configurations {
     querydsl.extendsFrom compileClasspath
 }
 
-
-
-
-//plugins {
-//    id 'org.springframework.boot' version '2.1.4.RELEASE'
-//    id 'java'
-//}
-//
-//apply plugin: 'io.spring.dependency-management'
-//
-//group = 'kr.co.unisem'
-//version = '0.0.1-SNAPSHOT'
-//sourceCompatibility = '1.8'
-//
-//configurations {
-//    compileOnly {
-//        extendsFrom annotationProcessor
-//    }
-//}
-//
-//repositories {
-//    mavenCentral()
-//}
-//
-//// QueryDSL (https://jojoldu.tistory.com/372)
-//apply plugin: "com.ewerk.gradle.plugins.querydsl" // Plugin 적용
-//def querydslSrcDir = 'src/main/generated' // QClass 생성 위치
-//querydsl {
-//    library = "com.querydsl:querydsl-apt"
-//    jpa = true
-//    querydslSourcesDir = querydslSrcDir
-//}
-//sourceSets {
-//    main {
-//        java {
-//            srcDirs = ['src/main/java', querydslSrcDir]
-//        }
-//    }
-//}
-//
-//
-//dependencies {
-//    // Spring Boot
-//    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
-//    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-//    implementation 'org.springframework.boot:spring-boot-starter-validation'
-//    implementation 'org.springframework.boot:spring-boot-starter-web'
-//    implementation 'org.springframework.session:spring-session-core'
-//    // 템플릿
-//    implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-//    compileOnly 'org.projectlombok:lombok'
-//    runtime 'org.springframework.boot:spring-boot-devtools'
-//    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1")
-//    implementation('org.springframework.boot:spring-boot-starter-data-rest')
-//
-//    runtimeOnly 'mysql:mysql-connector-java'
-//
-//    // QueryDSL
-//    compile("com.querydsl:querydsl-jpa")
-//    compile('com.querydsl:querydsl-apt')
-//
-//    annotationProcessor 'org.projectlombok:lombok'
-//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-//    testImplementation 'org.springframework.security:spring-security-test'
-//}

@@ -18,7 +18,7 @@ spring:
 #        basename: i18n/messages
 #        encoding:  UTF-8
 mybatis:
-    type-aliases-package: kr.co.unisem.vms.mapper
+    type-aliases-package: com.devplayg.vms.mapper
     mapper-locations:  mybatis/mapper/**/*.xml
     configuration:
         map-underscore-to-camel-case: true
@@ -60,7 +60,7 @@ logging:
     file: logs/web-dev.log
     level:
         root: info
-        kr.co.unisem: info
+        com.devplayg: info
         org:
             mybatis: info
             hibernate:
@@ -88,7 +88,7 @@ logging:
     file: logs/web-prod.log
     level:
         root: info
-        kr.co.unisem: info
+        com.devplayg: info
         org:
             mybatis: info
             hibernate:

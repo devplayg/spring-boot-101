@@ -34,7 +34,7 @@
         </select>
 
         <select name="org" multiple class="selectpicker">
-            <option th:each="state : ${T(kr.co.unisem.vms.code.EnumOrg.OrgType).values()}"
+            <option th:each="state : ${T(com.devplayg.vms.code.EnumOrg.OrgType).values()}"
                     th:value="${state}"
                     th:text="${state.value}">
             </option>
@@ -42,7 +42,7 @@
 
 
         <div class="form-group">
-            <div th:each="state : ${T(kr.co.unisem.vms.code.EnumRiskLevel.RiskLevel).values()}">
+            <div th:each="state : ${T(com.devplayg.vms.code.EnumRiskLevel.RiskLevel).values()}">
                 <input type="checkbox"
                        th:value="${state}"
                        name="riskLevel"

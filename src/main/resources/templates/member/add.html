@@ -16,7 +16,7 @@
         enabled: <input type="checkbox" th:name="enabled" checked="checked"/> <Br>
 
         roles:
-        <div th:each="role, stat : ${T(kr.co.unisem.vms.code.EnumRole.Role).values()}">
+        <div th:each="role, stat : ${T(com.devplayg.vms.code.EnumRole.Role).values()}">
             <input type="checkbox"
                    th:name="|roleList[${stat.index}].role|"
                    th:value="${role}"
