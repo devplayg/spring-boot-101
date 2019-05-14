@@ -15,6 +15,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,10 @@ import java.util.stream.Collectors;
 @RestController
 @Slf4j
 public class SecurityController {
+
+//    @Autowired
+//    private InMemoryUserDetailsManager inMemoryUserDetailsManager;
+
 
     @Autowired
     private SessionRegistry sessionRegistry;
@@ -71,56 +76,49 @@ public class SecurityController {
     // 사용자에게 권한 추가
     @GetMapping("assign/rule/{username}/{role}")
     public String assignRole(@PathVariable("username") String username, @PathVariable("role") String role) {
-//        loadUserDetails
-//        final List<Object> list = sessionRegistry.getAllPrincipals();
-//        for ( Object abc : list) {
-//                UserDetails nn = (UserDetails) abc;
-//        }
-
+//        inMemoryUserDetailsManager.createUser(new User(username, password, new ArrayList<GrantedAuthority>()));
+//        return "added";
         List<UserDetails> list = sessionRegistry.getAllPrincipals()
                 .stream()
                 .map(e -> (UserDetails) e)
                 .collect(Collectors.toList());
 
-        for (UserDetails user : list) {
-            if (user.getUsername().equals(username)) {
+//        for (UserDetails user : list) {
+//            if (user.getUsername().equals(username)) {
+//                Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
+//                UserDetails userDetails = (UserDetails)auth.getDetails();
+//                 inMemoryUserDetailsManager.updateUser(userDetails);
 
-                List<GrantedAuthority> roles = new ArrayList<>(user.getAuthorities());
-                roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
-                Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), roles);
 
-//                UserDetailsByNameServiceWrapper loadUserDetails
 
-//                SecurityContextHolder.getContext().setAuthentication(newAuth);
-                List<SessionInformation> sessions = sessionRegistry.getAllSessions(user, false);
-                for (SessionInformation s : sessions) {
-//                    s.getSessionId()
-//
-                }
-//                getSession
-//                HttpSession session = request.getSession();
-//                session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-//                log.info("session info: {}", sessions.toString());
+//                List<GrantedAuthority> roles = new ArrayList<>(user.getAuthorities());
+//                roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
 
-//                user.
+
+//                inMemoryUserDetailsManager.createUser(new User(username, password, new ArrayList<GrantedAuthority>()));
+//                return "added";
+
+//                Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), roles);
+//                getUserDetails
+//                newAuth.
+//                inMemoryUserDetailsManager.updateUser(newAuth);
+//                List<SessionInformation> sessions = sessionRegistry.getAllSessions(user, false);
+//                for (SessionInformation s : sessions) {
+//                }
 //                Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), roles);
-//                user.getAuthorities().add(new SimpleGrantedAuthority("ROLE_"));
-//                grantedAuths.add();
-
-//                user.getAuthorities().add();
-
-
-                log.info("username: {}, details: {}",  user.getUsername(), user);
-            }
-        }
-
-//        SecurityContextHolder.
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-//        List<GrantedAuthority> roles = new ArrayList<>(auth.getAuthorities());
-//        roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
-//        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), roles);
-//        SecurityContextHolder.getContext().setAuthentication(newAuth);
+////                user.getAuthorities().add(new SimpleGrantedAuthority("ROLE_"));
+////                grantedAuths.add();
+////                user.getAuthorities().add();
+//                log.info("username: {}, details: {}",  user.getUsername(), user);
+//            }
+//        }
+//
+////        SecurityContextHolder.
+////        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+////        List<GrantedAuthority> roles = new ArrayList<>(auth.getAuthorities());
+////        roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
+////        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), roles);
+////        SecurityContextHolder.getContext().setAuthentication(newAuth);
         return "";
     }
 
