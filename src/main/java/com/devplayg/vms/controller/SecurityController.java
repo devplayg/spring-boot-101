@@ -1,9 +1,7 @@
 package com.devplayg.vms.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,14 +13,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,47 +74,24 @@ public class SecurityController {
     public String assignRole(@PathVariable("username") String username, @PathVariable("role") String role) {
 //        inMemoryUserDetailsManager.createUser(new User(username, password, new ArrayList<GrantedAuthority>()));
 //        return "added";
+
         List<UserDetails> list = sessionRegistry.getAllPrincipals()
                 .stream()
                 .map(e -> (UserDetails) e)
                 .collect(Collectors.toList());
 
-//        for (UserDetails user : list) {
-//            if (user.getUsername().equals(username)) {
-//                Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), user.getAuthorities());
-//                UserDetails userDetails = (UserDetails)auth.getDetails();
-//                 inMemoryUserDetailsManager.updateUser(userDetails);
+        for (UserDetails user : list) {
+            if (user.getUsername().equals(username)) {
+                List<GrantedAuthority> roles = new ArrayList<>(user.getAuthorities());
+                roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
+                Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), roles);
+                List<SessionInformation> sessions = sessionRegistry.getAllSessions(user, false);
 
-
-
-//                List<GrantedAuthority> roles = new ArrayList<>(user.getAuthorities());
-//                roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
-
-
-//                inMemoryUserDetailsManager.createUser(new User(username, password, new ArrayList<GrantedAuthority>()));
-//                return "added";
-
-//                Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), roles);
-//                getUserDetails
-//                newAuth.
-//                inMemoryUserDetailsManager.updateUser(newAuth);
-//                List<SessionInformation> sessions = sessionRegistry.getAllSessions(user, false);
-//                for (SessionInformation s : sessions) {
-//                }
-//                Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), roles);
-////                user.getAuthorities().add(new SimpleGrantedAuthority("ROLE_"));
-////                grantedAuths.add();
-////                user.getAuthorities().add();
-//                log.info("username: {}, details: {}",  user.getUsername(), user);
-//            }
-//        }
-//
-////        SecurityContextHolder.
-////        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-////        List<GrantedAuthority> roles = new ArrayList<>(auth.getAuthorities());
-////        roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
-////        Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), roles);
-////        SecurityContextHolder.getContext().setAuthentication(newAuth);
+                log.info("sessions: {}", sessions.toString());
+                for (SessionInformation s : sessions) {
+                }
+            }
+        }
         return "";
     }
 
