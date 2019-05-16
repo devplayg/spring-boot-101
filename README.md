@@ -1,13 +1,13 @@
 # Spring Boot 101
 
-### Java 8
+### Java 11
 
 ### Spring Boot 2.1.4
 
--  Security
+### Spring Security
 
 ### JPA, Hibernate
 
-### Spring Data JPA
-
 ### QueryDSL
+
+### Thymeleaf
