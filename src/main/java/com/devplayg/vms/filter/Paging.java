@@ -19,7 +19,8 @@ public class Paging implements Serializable {
     public void setOffset(int offset) {
         this.offset = (offset > 0) ? offset : 0;
     }
+
     public void setLimit(int limit) {
-        this.limit = (limit > 100  || limit < 0) ? 10 : limit;
+        this.limit = (limit > 100 || limit < 0) ? 10 : limit;
     }
 }

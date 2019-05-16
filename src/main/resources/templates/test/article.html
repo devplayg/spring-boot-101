@@ -1,10 +1,12 @@
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="base">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="base">
 
 <div layout:fragment="content">
 
 
     <div id="toolbar-article">
-        <form id="form-article" class="form-inline" role="form" method="post" th:action="@{article}" th:object="${filter}">
+        <form id="form-article" class="form-inline" role="form" method="post" th:action="@{article}"
+              th:object="${filter}">
             <input type="text" class="form-control" name="startDate" th:value="*{startDate}"/>
             <input type="text" class="form-control" name="endDate" th:value="*{endDate}"/>
             <input type="text" class="form-control" name="title" th:value="*{title}"/>

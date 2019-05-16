@@ -12,10 +12,11 @@
         memberID: <input type="text" th:name="member_id" th:value="*{id}"/><Br>
         username: <input type="text" th:name="username" th:value="*{username}"/><Br>
         password: <input type="text" th:name="password" th:value="*{password}"><br>
-        name: <input type="text" th:name="name" th:value="*{name}" /><Br>
-        email: <input type="text" th:name="email" th:value="*{email}" /><Br>
-        enabled: <input type="checkbox" th:name="enabled" th:checked="*{enabled}" /> <Br>
-        <div th:text="*{roleList}"/><br>
+        name: <input type="text" th:name="name" th:value="*{name}"/><Br>
+        email: <input type="text" th:name="email" th:value="*{email}"/><Br>
+        enabled: <input type="checkbox" th:name="enabled" th:checked="*{enabled}"/> <Br>
+        <div th:text="*{roleList}"/>
+        <br>
 
 
         roles:
@@ -36,13 +37,13 @@
 <th:block layout:fragment="script">
     <script th:inline="javascript">
         /*<![CDATA[*/
-        $('form').on('submit', function(e){
+        $('form').on('submit', function (e) {
             var $form = $(this);
             // validation code here
             e.preventDefault();
             var memberID = $('input[name=member_id]', $form).val(),
                 // url = "/member/patchTest/"+memberID;
-                url = "/member/"+memberID;
+                url = "/member/" + memberID;
 
             // console.log($('input[name=member_id]', $form).val());
             // console.log($form.serialize());
@@ -51,23 +52,22 @@
                 method: "PATCH",
                 url: url,
                 data: $form.serialize()
-            }).done(function( rs ) {
+            }).done(function (rs) {
                 console.log(rs);
             });
         });
 
-        $(".btn-delete").click(function() {
+        $(".btn-delete").click(function () {
             var id = $("#form-edit input[name=member_id]").val();
             // console.log(id);
             $.ajax({
                 method: "DELETE",
-                url: "/member/"+id,
-            }).done(function( rs ) {
+                url: "/member/" + id,
+            }).done(function (rs) {
                 console.log(rs);
             });
 
         });
-
 
 
         /*]]>*/

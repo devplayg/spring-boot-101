@@ -12,18 +12,18 @@
     <link rel="stylesheet" th:href="@{/css/custom.css}">
 </head>
 <body class="container-fluid">
-    <div>
-        Logged in app: <b th:inline="text" class="user"> [[${#httpServletRequest.remoteUser}]] </b>
-        <a href="/logout" th:href="@{/logout}">Logout</a>
-        <hr>
-    </div>
-    <!--/* Contents */-->
-    <div layout:fragment="content"></div>
-    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
-    <script th:src="@{/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
-    <script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.min.js}"></script>
-    <!--/* Custom Javascript */-->
-    <script layout:fragment="script"></script>
+<div>
+    Logged in app: <b th:inline="text" class="user"> [[${#httpServletRequest.remoteUser}]] </b>
+    <a href="/logout" th:href="@{/logout}">Logout</a>
+    <hr>
+</div>
+<!--/* Contents */-->
+<div layout:fragment="content"></div>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-table/bootstrap-table.min.js}"></script>
+<script th:src="@{/plugins/bootstrap-select/js/bootstrap-select.min.js}"></script>
+<!--/* Custom Javascript */-->
+<script layout:fragment="script"></script>
 </body>
 </html>

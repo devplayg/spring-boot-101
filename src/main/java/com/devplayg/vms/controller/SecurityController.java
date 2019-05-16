@@ -63,7 +63,7 @@ public class SecurityController {
     public String active(@PathVariable("role") String role) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         List<GrantedAuthority> roles = new ArrayList<>(auth.getAuthorities());
-        roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
+        roles.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
         Authentication newAuth = new UsernamePasswordAuthenticationToken(auth.getPrincipal(), auth.getCredentials(), roles);
         SecurityContextHolder.getContext().setAuthentication(newAuth);
         return "";
@@ -83,7 +83,7 @@ public class SecurityController {
         for (UserDetails user : list) {
             if (user.getUsername().equals(username)) {
                 List<GrantedAuthority> roles = new ArrayList<>(user.getAuthorities());
-                roles.add( new SimpleGrantedAuthority("ROLE_"+role.toUpperCase()));
+                roles.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase()));
                 Authentication newAuth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword(), roles);
                 List<SessionInformation> sessions = sessionRegistry.getAllSessions(user, false);
 
@@ -132,9 +132,9 @@ public class SecurityController {
 //        List<Object> loggedUsers = sessionRegistry.getAllPrincipals();
 
 
-        // user object = User currently updated
+    // user object = User currently updated
 // invalidate user session
-        // https://stackoverflow.com/questions/9910252/how-to-reload-authorities-on-user-update-with-spring-security
+    // https://stackoverflow.com/questions/9910252/how-to-reload-authorities-on-user-update-with-spring-security
 //        List<Object> loggedUsers = sessionRegistry.getAllPrincipals();
 //        for (Object principal : loggedUsers) {
 //            if(principal instanceof User) {

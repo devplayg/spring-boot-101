@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString(callSuper=true)
+@ToString(callSuper = true)
 public class ArticleFilter extends Paging {
     private String startDate;
     private String endDate;

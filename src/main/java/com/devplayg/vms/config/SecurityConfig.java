@@ -35,26 +35,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        httpSecurity.csrf().disable().cors();
         CharacterEncodingFilter filter = new CharacterEncodingFilter();
         httpSecurity
-            .authorizeRequests()
+                .authorizeRequests()
 
                 // 아래 URL 패턴에 매칭되면
                 .antMatchers("/admin/**")
-                    // 아래 권한이 있어야 함
-                    .hasAnyRole("ADMIN","USER")
+                // 아래 권한이 있어야 함
+                .hasAnyRole("ADMIN", "USER")
 
                 // 아래 URL 패턴에 매칭되면
-                .antMatchers("/", "/login/**",  "/plugins/**", "/css/**", "/images/**", "/js/**", "/resources/**")
-                    // 모든 요청을 허용함
-                    .permitAll() // 이 URL 패턴들은 인증요구 없이 허용
+                .antMatchers("/", "/login/**", "/plugins/**", "/css/**", "/images/**", "/js/**", "/resources/**")
+                // 모든 요청을 허용함
+                .permitAll() // 이 URL 패턴들은 인증요구 없이 허용
                 // 그외 요청은
                 .anyRequest()
-                    // 인증을 요구
-                    .authenticated()
+                // 인증을 요구
+                .authenticated()
 
                 .and()
 
-            // 로그인
-            .formLogin()
+                // 로그인
+                .formLogin()
                 // https://docs.spring.io/spring-security/site/docs/current/guides/html5/form-javaconfig.html
                 // 로그인 페이지
                 .loginPage("/login")
@@ -75,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
 
-            .logout()
+                .logout()
                 // 로그아웃 URL
                 .logoutUrl("/logout")
 
@@ -91,10 +91,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
 
-            .addFilterBefore(filter, CsrfFilter.class)
+                .addFilterBefore(filter, CsrfFilter.class)
                 .csrf().disable()
 
-            .sessionManagement().maximumSessions(10).sessionRegistry(sessionRegistry());
+                .sessionManagement().maximumSessions(10).sessionRegistry(sessionRegistry());
 //            .build(); .sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
 
     }
@@ -104,8 +104,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public SessionRegistry sessionRegistry() {
         return new SessionRegistryImpl();
     }
-
-
 
 
 //    @Override
@@ -121,12 +119,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //    }
 
 
-
 //    @Bean
 //    public ServletListenerRegistrationBean<HttpSessionEventPublisher> httpSessionEventPublisher() {
 //        return new ServletListenerRegistrationBean<HttpSessionEventPublisher>(new HttpSessionEventPublisher());
 //    }
-
 
 
 //    @Bean

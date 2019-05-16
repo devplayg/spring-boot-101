@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
 
 
     updateFilter();
@@ -10,17 +10,17 @@ $(function() {
 
     function updateFilter() {
 
-        $( 'select[name=org]' ).selectpicker('val', filter.org);
-        $( 'select[name=category]' ).selectpicker('val', filter.category);
+        $('select[name=org]').selectpicker('val', filter.org);
+        $('select[name=category]').selectpicker('val', filter.category);
 
-        if (filter.riskLevel !== null ) {
-            var riskLevel = filter.riskLevel.reduce(function(o, val) {
+        if (filter.riskLevel !== null) {
+            var riskLevel = filter.riskLevel.reduce(function (o, val) {
                 o[val] = true;
                 return o;
             }, {});
-            $("input[name=riskLevel]").each(function(i) {
-                if (riskLevel[ $(this).val() ]) {
-                    $(this).prop('checked', riskLevel[ $(this).val() ]);
+            $("input[name=riskLevel]").each(function (i) {
+                if (riskLevel[$(this).val()]) {
+                    $(this).prop('checked', riskLevel[$(this).val()]);
                 }
             });
 
@@ -31,11 +31,10 @@ $(function() {
         // $('input[name=riskLevel] [value="'+filter.riskLevel.join('"],[value="')+'"]').prop('checked',true);
 
 
-
     }
 
 
-    $('.btn-refresh').click(function(e) {
+    $('.btn-refresh').click(function (e) {
         // console.log('click');
 
         update();
@@ -49,7 +48,7 @@ $(function() {
     function update() {
         console.log(filter);
         var url = '/test/articles';
-        url += '?'+$.param(filter, true);
+        url += '?' + $.param(filter, true);
 
         //console.log(url);
 

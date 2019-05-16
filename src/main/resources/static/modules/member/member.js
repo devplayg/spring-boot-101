@@ -1,8 +1,8 @@
-$(function() {
+$(function () {
     var $table = $("#table-member");
     console.log(3);
 
-    // updateFilter();
+// updateFilter();
 //     // update();
 //
 //     function updateFilter() {

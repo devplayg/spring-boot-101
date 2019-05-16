@@ -1,8 +1,8 @@
-$(function() {
+$(function () {
     // console.log(555);
     update();
 
-    $('.btn-refresh').click(function(e) {
+    $('.btn-refresh').click(function (e) {
         // console.log('click');
 
         update();

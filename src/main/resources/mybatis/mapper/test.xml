@@ -7,28 +7,28 @@
 
     <select id="getArticlesPaged" resultType="com.devplayg.vms.entity.Article">
         SELECT
-                <if test="fastPaging == false ">
-                -- Slow paging
-                SQL_CALC_FOUND_ROWS
-                </if>
-                article_id
-                , title
-                , category
-                , `date`
+        <if test="fastPaging == false ">
+            -- Slow paging
+            SQL_CALC_FOUND_ROWS
+        </if>
+        article_id
+        , title
+        , category
+        , `date`
         FROM articles
         where true
-            <if test="title != null">
-                and title like CONCAT('%', #{title}, '%')
-            </if>
-            <if test="category != null and category.size() > 0">
-                and category IN
-                <foreach collection="category" item="item" separator="," open="(" close=")" index="">
-                    #{item}
-                </foreach>
-            </if>
+        <if test="title != null">
+            and title like CONCAT('%', #{title}, '%')
+        </if>
+        <if test="category != null and category.size() > 0">
+            and category IN
+            <foreach collection="category" item="item" separator="," open="(" close=")" index="">
+                #{item}
+            </foreach>
+        </if>
 
         <if test="sort != null">
-        order by ${sort} ${order}
+            order by ${sort} ${order}
         </if>
         limit #{offset}, #{limit}
     </select>

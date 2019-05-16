@@ -34,7 +34,7 @@ public class MemberDetailsService implements UserDetailsService {
     }
 
     private static List<? extends GrantedAuthority> getAuthorities(Member member) {
-        String[] roles = member.getRoleList().stream().map(role -> "ROLE_"+role.getRole().getKey()).toArray(String[]::new);
+        String[] roles = member.getRoleList().stream().map(role -> "ROLE_" + role.getRole().getKey()).toArray(String[]::new);
         List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(roles);
         return authorities;
     }

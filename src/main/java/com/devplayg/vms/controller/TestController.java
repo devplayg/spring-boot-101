@@ -32,7 +32,7 @@ public class TestController {
     @Autowired
     private CommonRepository commonRepository;
 
-    @RequestMapping(value = "article", method = { RequestMethod.GET, RequestMethod.POST })
+    @RequestMapping(value = "article", method = {RequestMethod.GET, RequestMethod.POST})
     public String displayAllArticles(@ModelAttribute ArticleFilter filter, Model model) {
         log.info(filter.toString());
         model.addAttribute("filter", filter);
@@ -79,7 +79,6 @@ public class TestController {
 //        a.setTitle(article.getTitle());
 //        log.info("### getTitle: {}", article.getTitle());
 //        return ResponseEntity.ok(a);
-
 
 
 //        List<Article> list = testRepository.findAll();
@@ -217,10 +216,7 @@ public class TestController {
 //    }
 
 
-
 }
-
-
 
 
 // https://jsonobject.tistory.com/449

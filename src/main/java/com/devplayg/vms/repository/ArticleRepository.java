@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 @Mapper
-public interface ArticleRepository  {
+public interface ArticleRepository {
     List<Article> getAllArticles();
+
     List<Article> getArticlesPaged(ArticleFilter filter);
 }

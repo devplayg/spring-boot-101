@@ -51,9 +51,9 @@ spring:
             auto-commit: false
 
 server:
-#    error:
-#        whitelabel:
-#            enabled: true
+    #    error:
+    #        whitelabel:
+    #            enabled: true
     port: 80 # 서버 웹포트
 
 logging:

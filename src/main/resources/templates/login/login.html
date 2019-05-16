@@ -9,19 +9,19 @@
 <body class="container-fluid">
 <h2 th:text="#{login.welcome}">Some Text</h2>
 <h2 th:text="#{search}">Some Text</h2>
-    <hr>
-    <h4> Sign In</h4>
-    <p th:if="${param.error}" class="error">
-        Bad Credentials
-    </p>
+<hr>
+<h4> Sign In</h4>
+<p th:if="${param.error}" class="error">
+    Bad Credentials
+</p>
 
-    <form th:action="@{/app-login}" method="POST">
-        Username: <input type="text" name="app_username" value="wsahn"/> <br/><br/>
-        Password: <input type="password" name="app_password" value="m123"/> <br/><br/>
-        <input type="submit" value="Login"/>
-    </form>
+<form th:action="@{/app-login}" method="POST">
+    Username: <input type="text" name="app_username" value="wsahn"/> <br/><br/>
+    Password: <input type="password" name="app_password" value="m123"/> <br/><br/>
+    <input type="submit" value="Login"/>
+</form>
 
-    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/plugins/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>
